@@ -1,6 +1,4 @@
 
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
 from DBClient import DBClient
 
 DB_URI = "mongodb+srv://developer:cs15@cstix1.qizcotr.mongodb.net/?retryWrites=true&w=majority&appName=CSTIX1"
