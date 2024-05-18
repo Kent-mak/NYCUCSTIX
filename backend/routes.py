@@ -7,7 +7,7 @@ from bson import ObjectId
 router = APIRouter()
 
 # get request method
-# Home page
+# event page
 @router.get("/events/{event_name}", response_class=JSONResponse)
 async def get_events(event_name: str):
     event = collection_name.find_one({"name": event_name})
