@@ -43,6 +43,7 @@ async def shutdown_db_client(app):
 app = FastAPI(lifespan=lifespan)
 app.include_router(router)
 
+# may need change
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 templates = Jinja2Templates(directory="frontend/template")
 
