@@ -46,11 +46,13 @@ app.include_router(router)
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 templates = Jinja2Templates(directory="frontend/template")
 
+# homepage
 @app.get("/", response_class=HTMLResponse)
 async def read_form(request: Request):
     events = list(collection_name.find())
     return templates.TemplateResponse("page.html", {"request": request, "events": events})
 
+# after submit form -> redirect to corresponding page
 @app.post("/submit-form")
 async def handle_form(event_name: str = Form(...)):
     redirect_url = f"/events/{event_name}"
