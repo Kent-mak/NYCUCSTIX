@@ -53,6 +53,7 @@ async def read_form(request: Request):
     return templates.TemplateResponse("page.html", {"request": request, "events": events})
 
 # after submit form -> redirect to corresponding page
+# in page.html, <form action="/submit-form...">
 @app.post("/submit-form")
 async def handle_form(event_name: str = Form(...)):
     redirect_url = f"/events/{event_name}"
