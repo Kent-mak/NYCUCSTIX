@@ -1,1 +1,23 @@
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSTIX</title>
+    </head>
+    <body>
+        <h1>Event list</h1>
+        <ul>
+            {% for event in events %}
+            <li>
+                <strong>Event:</strong> {{event.name}} <br>
+                <strong>Date:</strong> {{event.Date}} <br>
+            </li>
+            {% endfor %}
+        </ul>
+        <h1>Select an Event</h1>
+        <form action="/submit-form" method="post">
+            <label for="event_name">Event Name:</label>
+            <input type="text" id="event_name" name="event_name">
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
