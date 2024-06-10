@@ -1,29 +1,49 @@
-import * as React from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-interface MenuItemProps {
-  label: string;
-}
+type MenuItemProps = {
+  text: string;
+};
 
-const MenuItem: React.FC<MenuItemProps> = ({ label }) => (
-  <div className="text-base font-bold text-white">
-    {label}
-  </div>
+const MenuItem: React.FC<MenuItemProps> = ({ text }) => (
+  <div className="text-base font-bold">{text}</div>
 );
 
-const NavBar: React.FC = () => (
-  <header className="flex justify-between items-center w-full px-6 lg:px-20 py-5 bg-sky-950">
-    <div className="text-white text-xl font-semibold tracking-normal">
-      NYCUSTIX
-    </div>
-    <nav className="flex gap-5">
-      <MenuItem label="我的票券" />
-      <MenuItem label="活動一覽" />
-    </nav>
-    <div className="flex gap-2 items-center">
-      <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac713fc9ee49174ce0c9184db0225d2bbaa21a2776c84c305a8ee68af440f3e1?apiKey=81ea71315c0e494985346d51166aaad4&" alt="" className="w-10 h-10 rounded-full" />
-      <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/245de0f0c45e9a16d332378bca3d5ff08d50f4cf294ae90ec616490145201c21?apiKey=81ea71315c0e494985346d51166aaad4&" alt="" className="w-6 h-6 rounded-full" />
-    </div>
-  </header>
-);
+const NavBar: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
+  return (
+    <header className="flex gap-5 justify-between px-20 py-7 whitespace-nowrap border-b border-solid bg-sky-950 border-neutral-200 leading-[150%] max-md:flex-wrap max-md:px-5">
+      <nav className="flex gap-5 my-auto text-white">
+        <h1
+          className="flex-auto my-auto text-xl font-semibold tracking-normal cursor-pointer"
+          onClick={handleHomeClick}
+        >
+          NYCUCSTIX
+        </h1>
+        <div className="flex gap-5 justify-between">
+          <MenuItem text="我的票券" />
+          <MenuItem text="活動一覽" />
+        </div>
+      </nav>
+      <div className="flex gap-3 text-base font-medium text-black">
+        <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0}>
+          註冊
+        </button>
+        <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0} onClick={handleLoginClick}>
+          登入
+        </button>
+      </div>
+    </header>
+  );
+};
 
 export default NavBar;
