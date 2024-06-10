@@ -85,19 +85,19 @@ async def get_events(event_name: str):
 # handle login
 @app.post("/login/")
 async def login(username: str = Form(...), password: str = Form(...)):
-    # user = database.get_collection("Users").find_one({"name": username})
-    # # if not user:
-    # #     raise HTTPException(
-    # #         status_code=status.HTTP_401_UNAUTHORIZED,
-    # #         detail="Incorrect username or password",
-    # #         headers={"WWW-Authenticate": "Bearer"}
-    # #     )
-    # #if not verify_password(form.password)
-    # response = JSONResponse({
-    #     "code": 0,
-    #     "msg": "successfully login!"
-    # })
+    user = database.get_collection("Users").find_one({"name": username})
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+    #if not verify_password(password):
+    response = JSONResponse({
+        "code": 0,
+        "msg": "successfully login!"
+    })
     
     # user = users.find_one({"name": user})
-    # return response
-    return {"username": username, "password": password}
+    return response
+    # return {"username": username, "password": password}
