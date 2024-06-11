@@ -101,7 +101,15 @@ async def login(accountName: str = Form(...), password: str = Form(...)):
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"}
         )
-    #if not verify_password(password):
+    if not verify_password(password, user.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token = create_access_token(
+        data={"sub": user.name}
+    )
     response = JSONResponse({
         "code": 0,
         "msg": "successfully login!"

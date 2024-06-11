@@ -11,6 +11,8 @@ class Events(BaseModel):
     Date: str
     tickets_remaning: int
     
+# class User(BaseModel):
+    
 
 class LoginForm(BaseModel):
     username: str
