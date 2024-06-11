@@ -4,9 +4,8 @@ from pymongo.server_api import ServerApi
 from fastapi import FastAPI, Form, Request, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
-from typing import Annotated
 from model import Events, LoginForm
 import os
 from DBClient import DBClient
@@ -49,18 +48,25 @@ database = db_client.get_database()
 template_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'frontend', 'template')
 templates = Jinja2Templates(directory=template_path)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 # endpoints:
 # # homepage
-# @app.get("/", response_class=HTMLResponse)
-# async def read_form(request: Request):
-#     events = list(database.get_collection("Events").find())
-#     return templates.TemplateResponse("page.html", {"request": request, "events": events})
-
-# handle login
 @app.get("/", response_class=HTMLResponse)
 async def read_form(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    events = list(database.get_collection("Events").find())
+    return templates.TemplateResponse("page.html", {"request": request, "events": events})
+
+# handle login
+# @app.get("/", response_class=HTMLResponse)
+# async def read_form(request: Request):
+#     return templates.TemplateResponse("login.html", {"request": request})
 
 
 
@@ -82,10 +88,13 @@ async def get_events(event_name: str):
     else:
         return {"message": "Event not found"}
 
+# handle register
+
+
 # handle login
 @app.post("/login/")
-async def login(username: str = Form(...), password: str = Form(...)):
-    user = database.get_collection("Users").find_one({"name": username})
+async def login(accountName: str = Form(...), password: str = Form(...)):
+    user = database.get_collection("Users").find_one({"name": accountName})
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
