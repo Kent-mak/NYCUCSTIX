@@ -7,7 +7,7 @@ from dotenv import dotenv_values
 
 router = APIRouter()
 config = dotenv_values(".env")
-DB_URI = config["ATLAS_URL"]
+DB_URI = config["MONGO_URL"]
 DB_NAME = config["DB_NAME"]
 db_client = DBClient(DB_URI, DB_NAME)
 database = db_client.get_database()

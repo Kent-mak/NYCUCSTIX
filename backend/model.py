@@ -6,7 +6,7 @@ from typing import Annotated
 PyObjectId = Annotated[str, BeforeValidator(str)]
 
 class Events(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alies="_id")
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str
     Date: str
     tickets_remaning: int
