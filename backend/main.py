@@ -62,10 +62,13 @@ app.add_middleware(
 
 # endpoints:
 # # homepage
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
 async def read_form(request: Request):
     events = list(database.get_collection("Events").find())
-    return templates.TemplateResponse("page.html", {"request": request, "events": events})
+    for event in events:
+        event['_id'] = str(event['_id'])
+    print(events)
+    return events
 
 # handle login
 # @app.get("/", response_class=HTMLResponse)

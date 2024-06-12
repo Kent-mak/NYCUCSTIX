@@ -40,17 +40,17 @@ def insertEvents():
         year = int(input("year: "))
         month = int(input("month: "))
         day = int(input("day: "))
-        time = input("time: ")
+        hour = int(input("hour: "))
+        minute = int(input('minute: '))
         price =int(input("price: "))
-        location = input("locaion: ")
+        location = input("location: ")
 
         entry = {
             "name": name,
             "photo": photo,
             "description": description,
             "tickets_remaining": tickets_remaining,
-            "date": datetime(year, month, day),
-            "time": time,
+            "date": datetime(year, month, day, hour, minute),
             "price": price,
             "location": location
         }
