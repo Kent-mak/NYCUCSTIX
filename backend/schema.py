@@ -1,10 +1,19 @@
-def individual_serial(Events) -> dict:
+def individual_serial_events(event) -> dict:
     return{
-        "id": str(Events["_id"]),
-        "name": Events["name"],
-        "Date": Events["Date"],
-        "tickets_remaning": Events["tickets_remaning"]
+        "id": str(event["_id"]),
+        "name": event["name"],
+        "Date": event["Date"],
+        "tickets_remaning": event["tickets_remaning"]
     }
-    
-def list_serial(Events) -> list:
-    return [individual_serial(Event) for Event in Events]
+
+def individual_serial_user(user) -> dict:
+    return{
+        "id": str(user["_id"]),
+        "name": str(user["name"])        
+    }
+
+def list_serial_events(events) -> list:
+    return [individual_serial_events(event) for event in events]
+
+def list_serial_user(users) -> list:
+    return [individual_serial_user(user) for user in users]
