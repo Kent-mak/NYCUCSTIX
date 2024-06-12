@@ -6,20 +6,20 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
-from model import Events, LoginForm
+from model import Events, LoginForm, User
 import os
 from DBClient import DBClient
 from dotenv import dotenv_values
 from contextlib import asynccontextmanager
 # from routes import router
 from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user
-from authentication import verify_password, get_password_hash, create_access_token
+from authentication import create_access_token
 
 config = dotenv_values(".env")
 DB_URI = config["ATLAS_URL"]
 DB_NAME = config["DB_NAME"]
 
-# defind lifespan mwthod for fatsapi
+# define lifespan method for fatsapi
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await startup_db_client(app)
@@ -57,13 +57,14 @@ app.add_middleware(
 )
 
 # endpoints:
-# # homepage
+# homepage
 @app.get("/", response_class=HTMLResponse)
 async def read_form(request: Request):
     events = list(database.get_collection("Events").find())
-    return templates.TemplateResponse("page.html", {"request": request, "events": events})
+    users = list(database.get_collection("Users").find())
+    return templates.TemplateResponse("page.html", {"request": request, "events": users})
 
-# handle login
+# # handle login
 # @app.get("/", response_class=HTMLResponse)
 # async def read_form(request: Request):
 #     return templates.TemplateResponse("login.html", {"request": request})
@@ -101,18 +102,19 @@ async def login(accountName: str = Form(...), password: str = Form(...)):
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"}
         )
-    if not verify_password(password, user.password):
+    if password != user["password"]:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token = create_access_token(
-        data={"sub": user.name}
+        data={"sub": user["name"]}
     )
     response = JSONResponse({
         "code": 0,
-        "msg": "successfully login!"
+        "msg": "successfully login!",
+        access_token: access_token
     })
     
     # user = users.find_one({"name": user})

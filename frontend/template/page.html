@@ -10,6 +10,13 @@
             <li>
                 <strong>Event:</strong> {{event.name}} <br>
                 <strong>Date:</strong> {{event.Date}} <br>
+                <strong>password:</strong> {{event.password}} <br>
+                {% for ticket in event.events %}
+                <li>
+                    <strong>count:</strong> {{ticket.count}} <br>
+                    <strong>name:</strong> {{ticket.eventID}} <br>
+                </li>
+                {% endfor %}
             </li>
             {% endfor %}
         </ul>

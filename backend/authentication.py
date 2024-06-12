@@ -8,11 +8,13 @@ JWT_ALGORITHM = config["JWT_ALGORITHM"]
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
 
-def get_password_hash(password):
-    return pwd_context.hash(password)
+# no need, except we store hash in database
+# def verify_password(plain_password, hashed_password):
+#     return pwd_context.verify(plain_password, hashed_password)
+
+# def get_password_hash(password):
+#     return pwd_context.hash(password)
 
 def create_access_token(data: dict):
     to_encode = data.copy()

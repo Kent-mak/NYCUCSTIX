@@ -28,15 +28,31 @@ const Login: React.FC = () => {
   const [account, setAccount] =React.useState("");
   const [password, setPassword] =React.useState("");
   const handleAccountChange = (value: string) => {
-    setAccount(value); 
+    setAccount(value);
   };
   const handlePasswordChange = (value: string) => {
     setPassword(value); 
   };
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Account:", account);
-    console.log("Password:", password);
+    // add by Ann - test
+    const formData = new FormData();
+    formData.append("accountName", account);
+    formData.append("password", password);
+    try{
+      const response = await fetch("http://localhost:8000/login", {
+        method: 'POST',
+        body: formData,
+      });
+     const result = await response.json();
+     console.log(result);
+      // console.log("Account:", account);
+      // console.log("Password:", password);
+    }catch (error){
+      console.error('Error:', error)
+    }
+    //
+    
   };
   return (
     <div className="flex flex-col">
@@ -49,7 +65,7 @@ const Login: React.FC = () => {
           </header>
           <form onSubmit={handleSubmit}>
             <section>
-              <InputField id="accountName" labelText="account name" value={account} onChange={handleAccountChange} />
+              <InputField id="v" labelText="account name" value={account} onChange={handleAccountChange} />
               <InputField id="password" labelText="password" type="password" className="mt-4" value={password} onChange={handlePasswordChange} />
             </section>
             <button type="submit" className="justify-center items-center px-4 py-2 mt-4 max-w-full text-base font-medium leading-6 text-white bg-black rounded-lg w-full max-md:px-5">
