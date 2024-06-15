@@ -67,7 +67,6 @@ async def read_form(request: Request):
     events = list(database.get_collection("Events").find())
     for event in events:
         event['_id'] = str(event['_id'])
-    print(events)
     return events
 
 # handle login

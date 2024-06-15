@@ -9,7 +9,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const response = await fetch('http://127.0.0.1:8000/');
+      const response = await fetch('http://127.0.0.1:8001');
       const jsonData = await response.json();
       console.log(jsonData)
       setEvents(jsonData);
