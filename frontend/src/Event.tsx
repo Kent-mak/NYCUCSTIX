@@ -1,8 +1,7 @@
 import * as React from "react";
 import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
-import { createContext, useState } from "react";
-
+import { useTicket } from './TicketContext';
 
 type TicketStepperProps = {
   count: number;
@@ -37,7 +36,8 @@ const ConcertDetails: React.FC<ConcertDetailsProps> = ({ time, location, descrip
 };
 
 const Event: React.FC = () => {
-  const [ticketCount, setTicketCount] = React.useState(0);
+  // const [ticketCount, setTicketCount] = React.useState(0);
+  const { ticketCount, setTicketCount } = useTicket();
   const navigate = useNavigate();
   const handleIncrement = () => setTicketCount(prevCount => prevCount + 1);
   const handleDecrement = () => setTicketCount(prevCount => (prevCount > 0 ? prevCount - 1 : 0));

@@ -6,7 +6,7 @@ type MenuItemProps = {
 };
 
 const MenuItem: React.FC<MenuItemProps> = ({ text }) => (
-  <div className="text-base font-bold">{text}</div>
+  <div className="text-lg font-bold">{text}</div>
 );
 
 const NavBar: React.FC = () => {

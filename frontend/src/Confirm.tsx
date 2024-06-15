@@ -1,17 +1,19 @@
 import * as React from "react";
 import NavBar from "./NavBar";
+import { useTicket } from './TicketContext';
 
 const Confirm: React.FC = () => {
+  const { ticketCount } = useTicket();
   return (
     <div className="flex flex-col">
       <NavBar />
-        <div className="flex-grow flex justify-center items-center px-16 py-20 bg-white">
-          <main className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
-            <div className="flex flex-col justify-end items-start p-12 w-full bg-white rounded-xl shadow-md max-md:px-5 max-md:max-w-full">
+        <div className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
+          <div className="flex flex-col mt-48 w-full max-w-[1204px] max-md:mt-10 max-md:max-w-full">
+            <div className="flex flex-col justify-end items-start p-12 bg-white rounded-xl shadow-md max-md:px-5 max-md:max-w-full">
               <div className="flex flex-col justify-end w-24 text-black">
                 <div className="text-base font-medium leading-6">確認購票資訊</div>
                 <div className="flex gap-2 mt-3">
-                  <div className="text-4xl font-semibold leading-10">5 </div>
+                  <div className="text-4xl font-semibold leading-10"> {ticketCount} </div>
                   <div className="self-start mt-5 text-base font-medium leading-6">
                     張
                   </div>
@@ -31,7 +33,7 @@ const Confirm: React.FC = () => {
             <div className="justify-center self-center px-6 py-3.5 mt-16 text-xl font-bold leading-8 text-black whitespace-nowrap bg-yellow-500 rounded-lg shadow-sm max-md:px-5 max-md:mt-10">
               確認購票資料，送出
             </div>
-          </main>
+          </div>
         </div>
     </div>
   );
