@@ -1,9 +1,12 @@
 import * as React from "react";
 import NavBar from "./NavBar";
+import { useNavigate } from "react-router-dom";
 import { useTicket } from './TicketContext';
 
 const Confirm: React.FC = () => {
   const { ticketCount } = useTicket();
+  const navigate = useNavigate();
+  const handleNextClick = () => {navigate('/confirmed');};
   return (
     <div className="flex flex-col">
       <NavBar />
@@ -26,13 +29,13 @@ const Confirm: React.FC = () => {
                 </div>
                 <div className="mt-3 max-md:max-w-full">購票人：朱朱</div>
                 <div className="mt-3 max-md:max-w-full">
-                  總金額：$2000 x 5 = $10000
+                  總金額：$2000 x {ticketCount} = ${2000*ticketCount} 
                 </div>
               </div>
             </div>
-            <div className="justify-center self-center px-6 py-3.5 mt-16 text-xl font-bold leading-8 text-black whitespace-nowrap bg-yellow-500 rounded-lg shadow-sm max-md:px-5 max-md:mt-10">
+            <button onClick={handleNextClick} className="justify-center self-center px-6 py-3.5 mt-16 text-xl font-bold leading-8 text-black whitespace-nowrap bg-yellow-500 rounded-lg shadow-sm max-md:px-5 max-md:mt-10" type="button">
               確認購票資料，送出
-            </div>
+            </button>
           </div>
         </div>
     </div>
