@@ -41,7 +41,7 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("accountName", account);
+    formData.append("username", account);
     formData.append("password", password);
 
     try {

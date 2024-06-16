@@ -128,6 +128,8 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     return response
     # return {"username": username, "password": password}
 
+
+# only login user can access this endpoint
 @app.get("/user_data")
 async def user_page(current_user: User = Depends(get_current_user)):
     return current_user
