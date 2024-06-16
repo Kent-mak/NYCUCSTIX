@@ -14,15 +14,10 @@ class Events(BaseModel):
 class Tickets(BaseModel):
     count: int
     eventID: str
-    
+
 
 class User(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str
+    # id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    name: str | None = None
     password: str
     events: List[Tickets] = []
-       
-
-class LoginForm(BaseModel):
-    username: str
-    password: str

@@ -2,22 +2,22 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from fastapi import FastAPI, Form, Request, Depends, HTTPException, status
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
-from model import Events, LoginForm, User
+from model import Events, User
 import os
 from DB import DBClientWrapper
 from dotenv import dotenv_values
 from contextlib import asynccontextmanager
 # from routes import router
 from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user
-from authentication import create_access_token
+from authentication import create_access_token, get_current_user
 
 
 config = dotenv_values(".env")
-DB_URI = config["MONGO_URL"]
+DB_URI = config["ATLAS_URL"]
 DB_NAME = config["DB_NAME"]
 
 db_client_wrapper = DBClientWrapper()
@@ -98,30 +98,37 @@ async def get_events(event_name: str):
 
 
 # handle login
-@app.post("/login/")
-async def login(accountName: str = Form(...), password: str = Form(...)):
-    user = database.get_collection("Users").find_one({"name": accountName})
+@app.post("/token")
+# async def login(accountName: str = Form(...), password: str = Form(...)):
+async def login(form_data: OAuth2PasswordRequestForm = Depends()): 
+    user = database.get_collection("Users").find_one({"name": form_data.username})
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"}
         )
-    if password != user["password"]:
+    if form_data.password != user["password"]:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token = create_access_token(
-        data={"sub": user["name"]}
-    )
+        
+    access_token = create_access_token(data={"sub": user["name"]})
+    
     response = JSONResponse({
         "code": 0,
         "msg": "successfully login!",
-        access_token: access_token
+        "user_name": user["name"],
+        "access_token": access_token,
+        "token_type": "bearer"
     })
-    
-    # user = users.find_one({"name": user})
+
     return response
     # return {"username": username, "password": password}
+
+@app.get("/user_data")
+async def user_page(current_user: User = Depends(get_current_user)):
+    return current_user
+
