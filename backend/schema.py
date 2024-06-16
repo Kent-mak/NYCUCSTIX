@@ -4,8 +4,12 @@ def individual_serial_events(event) -> dict:
     return{
         "id": str(event["_id"]),
         "name": event["name"],
-        "Date": event["Date"],
-        "tickets_remaning": event["tickets_remaning"]
+        "photo": event['photo'],
+        "description": event["description"],
+        "Date": event["date"],
+        "tickets_remaning": event["tickets_remaining"],
+        "price": event['price'],
+        "location": event['location']
     }
     
     
@@ -21,8 +25,10 @@ def list_serial_tickets(tickets) -> dict:
 def individual_serial_user(user) -> dict:
     return {
         "id": str(user["_id"]),
-        "name": str(user["name"]),
-        # "tickets": []
+        "name": user["name"],
+        "photo": user['photo'],
+        "password": user['password'],
+        "events": user['events']
     }
 
 def list_serial_events(events) -> list:

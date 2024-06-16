@@ -8,18 +8,21 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
 from model import Events, LoginForm, User
 import os
-from DBClient import DBClient
+from DB import DBClientWrapper
 from dotenv import dotenv_values
 from contextlib import asynccontextmanager
 # from routes import router
 from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user
 from authentication import create_access_token
 
+
 config = dotenv_values(".env")
-DB_URI = config["ATLAS_URL"]
+DB_URI = config["MONGO_URL"]
 DB_NAME = config["DB_NAME"]
 
-# define lifespan method for fatsapi
+db_client_wrapper = DBClientWrapper()
+database = None
+# define lifespan method for fastapi
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await startup_db_client(app)
@@ -27,21 +30,22 @@ async def lifespan(app: FastAPI):
     await shutdown_db_client(app)
 
 async def startup_db_client(app):
-    app.db_client = DBClient(DB_URI, DB_NAME)
+    global database
+    db_client_wrapper.connect(DB_URI, DB_NAME)
+    database = db_client_wrapper.get_client().get_database()
     try:
-        app.db_client.ping()
-        print("MongoDB connected!")
+        db_client_wrapper.get_client().ping()
+        print("DB connected!")
     except Exception as e:
-        print(f"Failed to connect to MongoDB, raise error: {e}")
+        print(f"Failed to connect to DB, raise error: {e}")
         
 async def shutdown_db_client(app):
-    app.db_client.close()
+    db_client_wrapper.get_client().close()
     print("Database disconnected.")
 
 # create server with python FastAPI
 app = FastAPI(lifespan=lifespan)
-db_client = DBClient(DB_URI, DB_NAME)
-database = db_client.get_database()
+
 # app.include_router(router)
 
 # app.mount("/frontend", StaticFiles(directory="static"), name="static")
@@ -57,12 +61,13 @@ app.add_middleware(
 )
 
 # endpoints:
-# homepage
-@app.get("/", response_class=HTMLResponse)
+# # homepage
+@app.get("/")
 async def read_form(request: Request):
     events = list(database.get_collection("Events").find())
-    users = list(database.get_collection("Users").find())
-    return templates.TemplateResponse("page.html", {"request": request, "events": users})
+    for event in events:
+        event['_id'] = str(event['_id'])
+    return events
 
 # # handle login
 # @app.get("/", response_class=HTMLResponse)

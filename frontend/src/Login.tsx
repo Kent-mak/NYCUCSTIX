@@ -71,7 +71,6 @@ const Login: React.FC = () => {
       // Handle network or other errors
     }
   };
-
   return (
     <div className="flex flex-col">
       <NavBar />
