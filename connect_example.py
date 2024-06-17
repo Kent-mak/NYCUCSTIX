@@ -1,8 +1,9 @@
 
 from DBClient import DBClient
 
-DB_URI = "mongodb+srv://developer:cs15@cstix1.qizcotr.mongodb.net/?retryWrites=true&w=majority&appName=CSTIX1"
-DB_NAME = 'Dev'
+# DB_URI = "mongodb+srv://developer:cs15@cstix1.qizcotr.mongodb.net/?retryWrites=true&w=majority&appName=CSTIX1"
+DB_URI = "mongodb://root:donthackcscamp2024@167.99.69.49:27017/"
+DB_NAME = 'CSTIX'
 # Create a new client and connect to the server
 db_client = DBClient(DB_URI, DB_NAME)
 

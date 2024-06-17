@@ -3,8 +3,8 @@ from DBClient import DBClient
 from bson import json_util
 import json
 
-DB_URI = "mongodb+srv://developer:cs15@cstix1.qizcotr.mongodb.net/?retryWrites=true&w=majority&appName=CSTIX1"
-DB_NAME = 'Dev'
+DB_URI = "mongodb://167.99.69.49:27017/"
+DB_NAME = 'CSTIX'
 # Create a new client and connect to the server
 db = DBClient(DB_URI, DB_NAME)
 app = FastAPI()
