@@ -5,6 +5,7 @@ import Login from './Login';
 import Event from './Event';
 import Confirm from './Confirm';
 import Confirmed from './Confirmed';
+import MyTicket from './MyTicket';
 import { TicketProvider } from './TicketContext';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
            <Route path="/event" element={<Event />} />
            <Route path="/confirm" element={<Confirm />} />
            <Route path="/confirmed" element={<Confirmed />} />
+           <Route path="/myticket" element={<MyTicket />} />
         </Routes>
      </>
    </TicketProvider>
