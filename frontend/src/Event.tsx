@@ -68,7 +68,7 @@ const Event: React.FC = () => {
   const navigate = useNavigate();
   const handleIncrement = () => setTicketCount(prevCount => prevCount + 1);
   const handleDecrement = () => setTicketCount(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
-  const handleNextClick = () => { navigate('/confirm'); };
+  const handleNextClick = () => { navigate('/confirm', {state: {count: ticketCount, event: event}})};
 
   return (
     <div className="flex flex-col">

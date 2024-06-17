@@ -1,7 +1,13 @@
 import * as React from "react";
 import NavBar from "./NavBar";
+import { useLocation } from "react-router-dom";
 
 const Confirm: React.FC = () => {
+  const location = useLocation();
+  const { count , event} = location.state || {};
+  const total = Number(count)* Number(event['price']);
+  console.log(typeof(count));
+  
   return (
     <div className="flex flex-col">
       <NavBar />
@@ -11,20 +17,20 @@ const Confirm: React.FC = () => {
               <div className="flex flex-col justify-end w-24 text-black">
                 <div className="text-base font-medium leading-6">確認購票資訊</div>
                 <div className="flex gap-2 mt-3">
-                  <div className="text-4xl font-semibold leading-10">5 </div>
+                  <div className="text-4xl font-semibold leading-10">{count} </div>
                   <div className="self-start mt-5 text-base font-medium leading-6">
                     張
                   </div>
                 </div>
               </div>
               <div className="flex flex-col justify-end mt-8 text-xl font-medium leading-8 text-zinc-500 max-md:max-w-full">
-                <div className="max-md:max-w-full">活動：理想渾蛋演唱會</div>
+                <div className="max-md:max-w-full">{event['name']}</div>
                 <div className="mt-3 max-md:max-w-full">
-                  活動日期：2024/05/17(五) 17:00
+                  活動日期：{`${event['date'].substring(0,4)}.${event['date'].substring(5,7)}.${event['date'].substring(8,10)} ${event['date'].substring(11,13)}:${event['date'].substring(14,16)}`}
                 </div>
                 <div className="mt-3 max-md:max-w-full">購票人：朱朱</div>
                 <div className="mt-3 max-md:max-w-full">
-                  總金額：$2000 x 5 = $10000
+                  總金額：${event['price']} x {count} = ${total}
                 </div>
               </div>
             </div>

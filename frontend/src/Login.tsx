@@ -1,5 +1,6 @@
 import * as React from "react";
 import NavBar from "./NavBar";
+import { useNavigate } from "react-router-dom";
 
 type InputFieldProps = {
   id: string;
@@ -25,10 +26,11 @@ const InputField: React.FC<InputFieldProps> = ({ id, labelText, type = "text", c
 );
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [account, setAccount] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
-
+  
   const handleAccountChange = (value: string) => {
     setAccount(value);
   };
