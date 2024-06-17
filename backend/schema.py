@@ -6,7 +6,7 @@ def individual_serial_events(event) -> dict:
         "name": event["name"],
         "photo": event['photo'],
         "description": event["description"],
-        "Date": event["date"],
+        "date": event["date"],
         "tickets_remaning": event["tickets_remaining"],
         "price": event['price'],
         "location": event['location']

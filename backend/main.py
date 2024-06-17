@@ -86,6 +86,7 @@ async def handle_form(event_name: str = Form(...)):
 # handle 
 @app.get("/events/{event_name}", response_class=JSONResponse)
 async def get_events(event_name: str):
+    print(event_name)
     # event = collection_name.find_one({"name": event_name})
     event = database.get_collection("Events").find_one({"name": event_name})
     if event:
