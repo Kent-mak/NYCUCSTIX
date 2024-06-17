@@ -1,16 +1,22 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from schema import list_serial, individual_serial
-from database import collection_name
+from DBClient import DBClient
 from bson import ObjectId
+from dotenv import dotenv_values
 
 router = APIRouter()
+config = dotenv_values(".env")
+DB_URI = config["MONGO_URL"]
+DB_NAME = config["DB_NAME"]
+db_client = DBClient(DB_URI, DB_NAME)
+database = db_client.get_database()
 
 # get request method
 # event page
 @router.get("/events/{event_name}", response_class=JSONResponse)
 async def get_events(event_name: str):
-    event = collection_name.find_one({"name": event_name})
+    event = database.get_collection("Events").find_one({"name": event_name})
     if event:
         return individual_serial(event)
         # return event
@@ -18,13 +24,3 @@ async def get_events(event_name: str):
         return {"message": "Event not found"}
     # events = list_serial(collection_name.find())
     # return events
-    
-
-# @router.get("/")
-# async def get():
-#     events = list_serial(collection_name.find())
-#     return events
-
-# @router.post("/events/{}")
-# async def choose_event(name: str = Form()):
-#     return {"choose event = ": name}
