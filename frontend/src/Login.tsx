@@ -45,7 +45,7 @@ const Login: React.FC = () => {
     formData.append("password", password);
 
     try {
-      const response = await fetch("http://localhost:8000/login", {
+      const response = await fetch("http://localhost:8000/token", {
         method: 'POST',
         body: formData,
       });

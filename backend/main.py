@@ -17,7 +17,7 @@ from authentication import create_access_token, get_current_user
 
 
 config = dotenv_values(".env")
-DB_URI = config["ATLAS_URL"]
+DB_URI = config["MONGO_URL"]
 DB_NAME = config["DB_NAME"]
 
 db_client_wrapper = DBClientWrapper()
@@ -102,6 +102,7 @@ async def get_events(event_name: str):
 # async def login(accountName: str = Form(...), password: str = Form(...)):
 async def login(form_data: OAuth2PasswordRequestForm = Depends()): 
     user = database.get_collection("Users").find_one({"name": form_data.username})
+    print(user)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
