@@ -2,12 +2,12 @@ import * as React from "react";
 import NavBar from "./NavBar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useTicket } from './TicketContext';
+// import { useTicket } from './TicketContext';
 import { useAuth } from "../provider/AuthProvider"; 
 import UserNavBar from "./UserNavBar";
 
 const Confirm: React.FC = () => {
-  const { ticketCount } = useTicket();
+  // const { ticketCount } = useTicket();
   const navigate = useNavigate();
   const handleNextClick = () => {navigate('/confirmed');};
   const location = useLocation();
