@@ -1,6 +1,6 @@
 import * as React from "react";
 import NavBar from "./NavBar";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 type InputFieldProps = {
   id: string;
@@ -26,7 +26,7 @@ const InputField: React.FC<InputFieldProps> = ({ id, labelText, type = "text", c
 );
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [account, setAccount] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
@@ -47,21 +47,25 @@ const Login: React.FC = () => {
     formData.append("password", password);
 
     try {
-      const response = await fetch("http://localhost:8000/token", {
+      const response = await fetch("http://localhost:8000/user", {
         method: 'POST',
         body: formData,
       });
 
       if (response.status === 200) {
         const result = await response.json();
+        localStorage.setItem("user", result.token);
+
         console.log("Login successful:", result);
         setErrorMessage(""); // Clear any previous error messages
         // Handle successful login (e.g., redirect to another page)
+        
       } else if (response.status === 401) {
         const errorResult = await response.json();
         setErrorMessage("Invalid account name or password.");
         console.error("Login failed:", errorResult);
         // Handle login failure (e.g., show error message to the user)
+        
       } else {
         setErrorMessage("An unexpected error occurred. Please try again later.");
         console.error("Unexpected response status:", response.status);

@@ -99,7 +99,7 @@ async def get_events(event_name: str):
 
 
 # handle login
-@app.post("/token")
+@app.post("/user")
 # async def login(accountName: str = Form(...), password: str = Form(...)):
 async def login(form_data: OAuth2PasswordRequestForm = Depends()): 
     user = database.get_collection("Users").find_one({"name": form_data.username})
