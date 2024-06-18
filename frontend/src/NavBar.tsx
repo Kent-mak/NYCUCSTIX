@@ -3,22 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 type MenuItemProps = {
   text: string;
-  path: string;
+  onClick: () => void;
 };
 
-const MenuItem: React.FC<MenuItemProps> = ({ text, path }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(path);
-  };
-
-  return (
-    <div className="text-base font-bold cursor-pointer" onClick={handleClick}>
-      {text}
-    </div>
-  );
-};
+const MenuItem: React.FC<MenuItemProps> = ({ text, onClick}) => (
+  <div className="text-lg font-bold" onClick={onClick}>{text}</div>
+);
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
@@ -29,6 +19,9 @@ const NavBar: React.FC = () => {
 
   const handleHomeClick = () => {
     navigate('/');
+  };
+  const handleticketClick = () => {
+    navigate('/myticket');
   };
 
   return (
@@ -41,8 +34,8 @@ const NavBar: React.FC = () => {
           NYCUCSTIX
         </h1>
         <div className="flex gap-5 justify-between">
-          <MenuItem text="我的票券" path="/user" />
-          <MenuItem text="活動一覽" path="/events" />
+          <MenuItem text="我的票券" onClick={handleticketClick}/>
+          <MenuItem text="活動一覽" onClick={handleHomeClick}/>
         </div>
       </nav>
       <div className="flex gap-3 text-base font-medium text-black">
