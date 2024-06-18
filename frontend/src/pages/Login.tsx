@@ -65,7 +65,7 @@ const Login: React.FC = () => {
         setErrorMessage(""); 
         setToken(result.access_token);
         localStorage.setItem("username", account);
-        navigate("/", { replace: true });
+        // navigate("/", { replace: true });
         // Handle successful login (e.g., redirect to another page)
         navigate('/myticket')
         

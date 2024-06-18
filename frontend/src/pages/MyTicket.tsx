@@ -1,16 +1,17 @@
 import React from 'react';
 import NavBar from './NavBar';
 import { useState, useEffect } from 'react';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../provider/AuthProvider';
+import UserNavBar from './UserNavBar';
 
 const MyTicket: React.FC = () => {
-  const { user } = useAuth();
+  const { token } = useAuth();
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
     
     const fetchTickets = async () => {
-      const response = await fetch(`http://127.0.0.1:8000/user_data?token=${user}`);
+      const response = await fetch(`http://127.0.0.1:8000/user_data?token=${token}`);
       const jsonData = await response.json();
       console.log(jsonData)
       setTickets(jsonData['events']);
@@ -34,7 +35,7 @@ const MyTicket: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <NavBar />
+      {token ? <UserNavBar /> : <NavBar />}
       <div className="flex-grow flex justify-center items-center px-16 py-20 bg-white">
         <div className="flex justify-center items-center px-16 py-20 text-black bg-white max-md:px-5">
           <div className="flex flex-col mt-28 w-full max-w-[1062px] max-md:mt-10 max-md:max-w-full">

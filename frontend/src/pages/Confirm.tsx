@@ -2,7 +2,9 @@ import * as React from "react";
 import NavBar from "./NavBar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useTicket } from '../TicketContext';
+import { useTicket } from './TicketContext';
+import { useAuth } from "../provider/AuthProvider"; 
+import UserNavBar from "./UserNavBar";
 
 const Confirm: React.FC = () => {
   const { ticketCount } = useTicket();
@@ -11,11 +13,12 @@ const Confirm: React.FC = () => {
   const location = useLocation();
   const { count , event} = location.state || {};
   const total = Number(count)* Number(event['price']);
+  const { token } = useAuth();
   console.log(typeof(count));
   
   return (
     <div className="flex flex-col">
-      <NavBar />
+      {token ? <UserNavBar /> : <NavBar />}
         <div className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
           <div className="flex flex-col mt-48 w-full max-w-[1204px] max-md:mt-10 max-md:max-w-full">
             <div className="flex flex-col justify-end items-start p-12 bg-white rounded-xl shadow-md max-md:px-5 max-md:max-w-full">

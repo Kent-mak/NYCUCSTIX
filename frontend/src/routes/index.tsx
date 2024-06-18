@@ -5,6 +5,10 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Event from "../pages/Event";
+import MyTicket from "../pages/MyTicket";
+import Confirm from "../pages/Confirm";
+import Confirmed from "../pages/Confirmed";
+
 // import Login from "../pages/Login";
 // import Logout from "../pages/Logout";
 
@@ -39,13 +43,25 @@ const Routes: React.FC = () => {
         //   element: <div>User Profile</div>,
         // },
         {
-          path: "/logout",
+          path: "logout",
           element: <div>logout</div>,
         //   element: <Logout />,
         },
         {
-          path: "/event",
-          element: <Event />,
+          path: "event/:event_name",
+          element: <Event />, // This will match any path under /event/
+        },
+        {
+          path: "myticket",
+          element: <MyTicket />,
+        },
+        {
+          path: "confirm",
+          element: <Confirm />,
+        },
+        {
+          path: "confirmed",
+          element: <Confirmed />,
         }
       ],
     },

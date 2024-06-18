@@ -4,10 +4,11 @@ import { useAuth } from "../provider/AuthProvider";
 
 type MenuItemProps = {
   text: string;
+  onClick: () => void;
 };
 
-const MenuItem: React.FC<MenuItemProps> = ({ text }) => (
-  <div className="text-lg font-bold">{text}</div>
+const MenuItem: React.FC<MenuItemProps> = ({ text, onClick}) => (
+  <div className="text-lg font-bold" onClick={onClick}>{text}</div>
 );
 
 const NavBar: React.FC = () => {
@@ -24,6 +25,10 @@ const NavBar: React.FC = () => {
     navigate('/');
   };
 
+  const handleticketClick = () => {
+    navigate('/myticket');
+  };
+
   return (
     <header className="flex gap-5 justify-between px-20 py-7 whitespace-nowrap border-b border-solid bg-sky-950 border-neutral-200 leading-[150%] max-md:flex-wrap max-md:px-5">
       <nav className="flex gap-5 my-auto text-white">
@@ -34,8 +39,8 @@ const NavBar: React.FC = () => {
           NYCUCSTIX
         </h1>
         <div className="flex gap-5 justify-between">
-          <MenuItem text="我的票券" />
-          <MenuItem text="活動一覽" />
+          <MenuItem text="我的票券" onClick={handleticketClick}/>
+          <MenuItem text="活動一覽" onClick={handleHomeClick}/>
         </div>
       </nav>
       <div className="flex gap-3 text-base font-medium text-black">

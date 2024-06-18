@@ -1,7 +1,7 @@
 import * as React from "react";
 import NavBar from "./NavBar";
-import { useNavigate } from "react-router-dom";
-import { useTicket } from '../TicketContext';
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type TicketStepperProps = {
   count: number;
@@ -37,21 +37,29 @@ const ConcertDetails: React.FC<ConcertDetailsProps> = ({ time, location, descrip
 
 const Event: React.FC = () => {
   const [event, setEvent] = useState({
-    "id":'',
-    "name": '',
-    "photo": '',
-    "description": '',
-    "date": '',
-    "tickets_remaning": 0,
-    "price": 0,
-    "location": ''
+    id: '',
+    name: '',
+    photo: '',
+    description: '',
+    date: '',
+    tickets_remaning: 0,
+    price: 0,
+    location: ''
   });
-  const params = useParams();
-  const event_name = params['event_name'];
+
+  const params = useParams<{ event_name: string }>();
+  const event_name = params.event_name;
+  console.log("event_name", event_name);
 
   useEffect(() => {
+    if (!event_name) {
+      console.error('Event name is not defined');
+      return;
+    }
+
     const fetchEvent = async () => {
       try {
+        console.log(`Fetching event: ${event_name}`);
         const response = await fetch(`http://127.0.0.1:8000/events/${event_name}`);
         const jsonData = await response.json();
         console.log(jsonData);
@@ -80,11 +88,11 @@ const Event: React.FC = () => {
               <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                 <div className="flex flex-col w-[45%] max-md:ml-0 max-md:w-full">
                   <h1 className="grow mt-10 text-3xl font-semibold tracking-tighter leading-8 text-black whitespace-nowrap max-md:mt-10">
-                    {params['event_name']}
+                    {event.name}
                   </h1>
                   <img
                     loading="lazy"
-                    src={event['photo']}
+                    src={event.photo}
                     alt="Concert poster"
                     className="mt-10 w-full aspect-square"
                   />
@@ -99,7 +107,7 @@ const Event: React.FC = () => {
               </div>
             </article>
             <div className="flex gap-5 items-start mt-20 w-full text-xl font-bold leading-8 text-black whitespace-nowrap max-md:flex-wrap max-md:mt-10 max-md:max-w-full">
-              <div className="flex-auto self-end mt-6">票價: {event['price']}</div>
+              <div className="flex-auto self-end mt-6">票價: {event.price}</div>
               <TicketStepper count={ticketCount} onIncrement={handleIncrement} onDecrement={handleDecrement} />
               <button onClick={handleNextClick} className="justify-center px-4 py-1.5 my-auto bg-yellow-500 rounded-lg max-md:px-5" type="button">
                 下一步

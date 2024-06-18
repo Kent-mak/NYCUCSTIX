@@ -27,7 +27,7 @@
 import React from "react";
 import AuthProvider from "./provider/AuthProvider";
 import Routes from "./routes";
-import { TicketProvider } from "./TicketContext";
+import { TicketProvider } from "./pages/TicketContext";
 
 const App: React.FC = () => {
   return (

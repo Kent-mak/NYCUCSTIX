@@ -1,13 +1,16 @@
 import * as React from "react";
 import NavBar from "./NavBar";
-import { useTicket } from '../TicketContext';
+import UserNavBar from "./UserNavBar";
+import { useAuth } from "../provider/AuthProvider";
+import { useTicket } from './TicketContext';
 
 const Confirmed: React.FC = () => {
   const { ticketCount } = useTicket();
+  const { token } = useAuth();
   
   return (
     <div className="flex flex-col">
-        <NavBar />
+        {token ? <UserNavBar /> : <NavBar />}
         <div className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
             <div className="flex flex-col justify-end items-start py-12 pr-16 pl-12 mt-48 w-full bg-white rounded-xl shadow-md max-w-[1204px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
                 <div className="flex flex-col justify-center max-w-full text-4xl font-semibold leading-10 text-black whitespace-nowrap w-[441px]">
