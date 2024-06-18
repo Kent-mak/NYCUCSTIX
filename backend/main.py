@@ -99,7 +99,7 @@ async def get_events(event_name: str):
 
 
 # handle login
-@app.post("/user")
+@app.post("/token")
 # async def login(accountName: str = Form(...), password: str = Form(...)):
 async def login(form_data: OAuth2PasswordRequestForm = Depends()): 
     user = database.get_collection("Users").find_one({"name": form_data.username})
@@ -133,6 +133,11 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 # only login user can access this endpoint
 @app.get("/user_data")
-async def user_page(current_user: User = Depends(get_current_user)):
-    return current_user
+async def user_page(token):
+    user_name = await get_current_user(token)
+    print(user_name)
+    user = database.get_collection("Users").find_one({"name": user_name})
+    user['_id'] = str(user['_id'])
+    print(user)
+    return user
 

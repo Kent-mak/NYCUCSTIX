@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState} from 'react';
+import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 
 // Define the shape of your context data
 interface AuthContextType {
@@ -15,27 +15,45 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Custom hook for consuming the context
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
 
-
 interface AuthProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-    const value = { user, setUser };
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedUser = localStorage.getItem("user_token");
+      if (storedUser && storedUser !== 'undefined') {
+        setUser(JSON.parse(storedUser));
+      } else {
+        setUser(null);
+      }
+    };
 
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+    // Initialize the user state from localStorage
+    handleStorageChange();
+
+    // Add event listener for localStorage changes
+    window.addEventListener('storage', handleStorageChange);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
-    

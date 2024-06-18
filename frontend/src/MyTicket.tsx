@@ -1,20 +1,36 @@
 import React from 'react';
 import NavBar from './NavBar';
+import { useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
 
 const MyTicket: React.FC = () => {
-  // 定义活动数据数组
-  const tickets = [
-    {
-      name: '理想渾蛋演唱會',
-      date: '2024/05/17(五) 17:00',
-      quantity: 5,
-    },
-    {
-      name: '理想渾蛋演唱會',
-      date: '2024/05/17(五) 17:00',
-      quantity: 100,
-    },
-  ];
+  const { user } = useAuth();
+  const [tickets, setTickets] = useState([]);
+
+  useEffect(() => {
+    
+    const fetchTickets = async () => {
+      const response = await fetch(`http://127.0.0.1:8000/user_data?token=${user}`);
+      const jsonData = await response.json();
+      console.log(jsonData)
+      setTickets(jsonData['events']);
+    }
+    fetchTickets();
+    
+  },[]);
+  console.log(tickets)
+  // const tickets = [
+  //   {
+  //     name: '理想渾蛋演唱會',
+  //     date: '2024/05/17(五) 17:00',
+  //     count: 5,
+  //   },
+  //   {
+  //     name: '理想渾蛋演唱會',
+  //     date: '2024/05/17(五) 17:00',
+  //     count: 100,
+  //   },
+  // ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -37,15 +53,15 @@ const MyTicket: React.FC = () => {
               <div key={index} className="flex gap-5 justify-between self-center mt-8 max-w-full text-xl leading-8 w-[852px] max-md:flex-wrap">
                 <div className="flex flex-col whitespace-nowrap">
                   {/* <div>{ticket.name}</div> */}
-                  <div className="mt-9">{ticket.name}</div>
+                  <div className="mt-9">{ticket['name']}</div>
                 </div>
                 <div className="flex flex-col">
                   {/* <div>{ticket.date}</div> */}
-                  <div className="mt-10">{ticket.date}</div>
+                  <div className="mt-10">{ticket['date']}</div>
                 </div>
                 <div className="flex flex-col my-auto whitespace-nowrap">
-                  {/* <div>{ticket.quantity}</div> */}
-                  <div className="mt-10 max-md:mt-10">{ticket.quantity}</div>
+                  {/* <div>{ticket.count}</div> */}
+                  <div className="mt-10 max-md:mt-10">{ticket['count']}</div>
                 </div>
               </div>
             ))}

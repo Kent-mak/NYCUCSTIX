@@ -8,8 +8,8 @@ PyObjectId = Annotated[str, BeforeValidator(str)]
 class Events(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str
-    Date: str
-    tickets_remaning: int
+    date: str
+    tickets_remaining: int
     
 class Tickets(BaseModel):
     count: int
