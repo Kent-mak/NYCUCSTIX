@@ -60,6 +60,7 @@ const Login: React.FC = () => {
         console.log("Login successful:", result);
         setErrorMessage(""); 
         setToken(result.access_token);
+        localStorage.setItem("username", account);
         navigate("/", { replace: true });
         // Handle successful login (e.g., redirect to another page)
       } else if (response.status === 401) {

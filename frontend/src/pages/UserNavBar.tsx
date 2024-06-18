@@ -16,6 +16,7 @@ const NavBar: React.FC = () => {
 
   const handleLogoutClick = () => {
     setToken(null);
+    localStorage.removeItem('username');
     navigate('/');
   };
 
@@ -38,6 +39,9 @@ const NavBar: React.FC = () => {
         </div>
       </nav>
       <div className="flex gap-3 text-base font-medium text-black">
+        <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0}>
+          {localStorage.getItem('username')} 
+        </button>
         <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0} onClick={handleLogoutClick}>
           登出
         </button>

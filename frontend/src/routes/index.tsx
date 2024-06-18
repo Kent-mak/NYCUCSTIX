@@ -4,6 +4,7 @@ import { useAuth } from "../provider/AuthProvider";
 import { ProtectedRoute } from "./ProtectedRoute";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Event from "../pages/Event";
 // import Login from "../pages/Login";
 // import Logout from "../pages/Logout";
 
@@ -13,14 +14,14 @@ const Routes: React.FC = () => {
 
   // Define public routes accessible to all users
   const routesForPublic: RouteObject[] = [
-    {
-      path: "/service",
-      element: <div>Service Page</div>,
-    },
-    {
-      path: "/about-us",
-      element: <div>About Us</div>,
-    },
+    // {
+    //   path: "/service",
+    //   element: <div>Service Page</div>,
+    // },
+    // {
+    //   path: "/about-us",
+    //   element: <div>About Us</div>,
+    // },
   ];
 
   // Define routes accessible only to authenticated users
@@ -33,15 +34,19 @@ const Routes: React.FC = () => {
           path: "",
           element: <Home />,
         },
-        {
-          path: "/profile",
-          element: <div>User Profile</div>,
-        },
+        // {
+        //   path: "/profile",
+        //   element: <div>User Profile</div>,
+        // },
         {
           path: "/logout",
           element: <div>logout</div>,
         //   element: <Logout />,
         },
+        {
+          path: "/event",
+          element: <Event />,
+        }
       ],
     },
   ];
