@@ -57,17 +57,24 @@ const Login: React.FC = () => {
 
       if (response.status === 200) {
         const result = await response.json();
+        
+        localStorage.setItem("user_token", JSON.stringify(result['access_token']));
+        console.log(localStorage.getItem('user_token'));
+        
         console.log("Login successful:", result);
         setErrorMessage(""); 
         setToken(result.access_token);
         localStorage.setItem("username", account);
         navigate("/", { replace: true });
         // Handle successful login (e.g., redirect to another page)
+        navigate('/myticket')
+        
       } else if (response.status === 401) {
         const errorResult = await response.json();
         setErrorMessage("Invalid account name or password.");
         console.error("Login failed:", errorResult);
         // Handle login failure (e.g., show error message to the user)
+
       } else {
         setErrorMessage("An unexpected error occurred. Please try again later.");
         console.error("Unexpected response status:", response.status);
