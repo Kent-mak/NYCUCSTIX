@@ -1,6 +1,6 @@
 import * as React from "react";
 import NavBar from "./NavBar";
-import { useTicket } from './TicketContext';
+import { useTicket } from '../TicketContext';
 
 const Confirmed: React.FC = () => {
   const { ticketCount } = useTicket();

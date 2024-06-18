@@ -1,7 +1,7 @@
 import * as React from "react";
 import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
-import { useTicket } from './TicketContext';
+import { useTicket } from '../TicketContext';
 
 type TicketStepperProps = {
   count: number;

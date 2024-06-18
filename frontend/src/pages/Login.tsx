@@ -1,5 +1,7 @@
 import * as React from "react";
 import NavBar from "./NavBar";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../provider/AuthProvider";
 
 type InputFieldProps = {
   id: string;
@@ -25,9 +27,12 @@ const InputField: React.FC<InputFieldProps> = ({ id, labelText, type = "text", c
 );
 
 const Login: React.FC = () => {
+
   const [account, setAccount] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
 
   const handleAccountChange = (value: string) => {
     setAccount(value);
@@ -53,7 +58,9 @@ const Login: React.FC = () => {
       if (response.status === 200) {
         const result = await response.json();
         console.log("Login successful:", result);
-        setErrorMessage(""); // Clear any previous error messages
+        setErrorMessage(""); 
+        setToken(result.access_token);
+        navigate("/", { replace: true });
         // Handle successful login (e.g., redirect to another page)
       } else if (response.status === 401) {
         const errorResult = await response.json();
@@ -71,6 +78,8 @@ const Login: React.FC = () => {
       // Handle network or other errors
     }
   };
+
+
   return (
     <div className="flex flex-col">
       <NavBar />
