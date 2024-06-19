@@ -15,12 +15,6 @@ DB_NAME = config["DB_NAME"]
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-# no need, except we store hash in database
-# def verify_password(plain_password, hashed_password):
-#     return pwd_context.verify(plain_password, hashed_password)
-
-# def get_password_hash(password):
-#     return pwd_context.hash(password)
 
 
 # functions
