@@ -9,7 +9,7 @@ from DB import DBClient
 config = dotenv_values(".env")
 JWT_SECRTE_KEY = config["JWT_SECRTE_KEY"]
 JWT_ALGORITHM = config["JWT_ALGORITHM"]
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 300
 DB_URI = config["ATLAS_URL"]
 DB_NAME = config["DB_NAME"]
 
