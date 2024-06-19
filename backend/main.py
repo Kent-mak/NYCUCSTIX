@@ -12,9 +12,10 @@ from DB import DBClientWrapper
 from dotenv import dotenv_values
 from contextlib import asynccontextmanager
 # from routes import router
-from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user
+from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user, individual_serial_problems, list_serial_problems
 from authentication import create_access_token, get_current_user
-
+import uuid
+from bson import Binary
 
 config = dotenv_values(".env")
 DB_URI = config["MONGO_URL"]
@@ -141,3 +142,49 @@ async def user_page(token):
     print(user)
     return user
 
+@app.post("/checkans")
+async def verify_answer(access_token, p_token, ans: int):
+    # check if this exist in DB
+    print(type(p_token))
+    p_token = uuid.UUID(p_token)
+    p_token = Binary.from_uuid(p_token)
+    print(type(p_token))
+    answer = database.get_collection("Problems").find_one({"p_token": p_token})
+    # collection = database.get_collection("Problems").find()
+    # return list_serial_problems(collection)
+    if answer == None:  # if the token is not exist
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="You are using an invalid token."
+        )
+    
+    if answer["ans"] != ans:  # answer incorrect
+        print("from database: ", type(answer["ans"]))
+        print("ans:", type(ans))
+        
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Your answer is wrong! You idiot."
+        )
+        
+    else:  # the answer is correct
+        # find user with access token
+        print("access_token", access_token)
+        user_name = await get_current_user(access_token)
+        print("user_name = ", user_name)
+        # user = database.get_collection("Users").find_one({"name": user_name})
+        update_user = database.get_collection("Users")\
+                                    .update_one(
+                                        {"name": user_name, "events.name": answer["event_name"]},  # event need to check what is in database
+                                        {"$inc": {"events.$.count": 1}}
+                                    )
+        if update_user.matched_count == 0:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="update user database failed."
+            )
+        
+        # delete p_token in problems
+        database.get_collection("Problems").delete_one({"p_token": p_token})
+        content = {"msg": "your answer is correct! brilliant!"}
+        return JSONResponse(content=content, status_code=200)
