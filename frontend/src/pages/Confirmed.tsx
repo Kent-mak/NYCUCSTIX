@@ -18,7 +18,7 @@ const Confirmed: React.FC = () => {
                      恭喜您，已成功訂票
                     </div>
                 </div>
-                <div className="flex flex-col justify-end mt-8 text-xl font-medium leading-8 text-zinc-500 max-md:max-w-full">
+                {/* <div className="flex flex-col justify-end mt-8 text-xl font-medium leading-8 text-zinc-500 max-md:max-w-full">
                     <div className="max-md:max-w-full">活動：理想渾蛋演唱會</div>
                     <div className="mt-3 max-md:max-w-full">
                         活動日期：2024/05/17(五) 17:00
@@ -26,7 +26,7 @@ const Confirmed: React.FC = () => {
                     <div className="mt-3 max-md:max-w-full">購票人：朱朱</div>
                     <div className="mt-3 max-md:max-w-full">總票數：{ticketCount} </div>
                     <div className="mt-3 max-md:max-w-full">總票價：${2000*ticketCount}  </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </div>

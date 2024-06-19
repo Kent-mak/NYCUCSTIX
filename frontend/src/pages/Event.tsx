@@ -2,8 +2,10 @@ import * as React from "react";
 import NavBar from "./NavBar";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "../provider/AuthProvider"; 
+import UserNavBar from "./UserNavBar";
 
-type TicketStepperProps = {
+/*type TicketStepperProps = {
   count: number;
   onIncrement: () => void;
   onDecrement: () => void;
@@ -17,7 +19,7 @@ const TicketStepper: React.FC<TicketStepperProps> = ({ count, onIncrement, onDec
       <button onClick={onIncrement} className="justify-center items-start px-3.5 py-4 bg-sky-950" type="button"> + </button>
     </div>
   );
-};
+};*/
 
 type ConcertDetailsProps = {
   time: string;
@@ -74,13 +76,14 @@ const Event: React.FC = () => {
 
   const [ticketCount, setTicketCount] = React.useState(0);
   const navigate = useNavigate();
-  const handleIncrement = () => setTicketCount(prevCount => prevCount + 1);
-  const handleDecrement = () => setTicketCount(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
-  const handleNextClick = () => { navigate('/confirm', {state: {count: ticketCount, event: event}})};
+  // const handleIncrement = () => setTicketCount(prevCount => prevCount + 1);
+  // const handleDecrement = () => setTicketCount(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
+  const handleNextClick = () => { navigate('/problem', {state: {count: ticketCount, event: event}})};
+  const { token } = useAuth();
 
   return (
     <div className="flex flex-col">
-      <NavBar />
+      {token ? <UserNavBar /> : <NavBar />}
       <div className="flex-grow flex justify-center items-center px-16 py-20 bg-white">
         <main className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
           <section className="flex flex-col mt-40 max-w-full w-[732px] max-md:mt-10">
@@ -108,7 +111,7 @@ const Event: React.FC = () => {
             </article>
             <div className="flex gap-5 items-start mt-20 w-full text-xl font-bold leading-8 text-black whitespace-nowrap max-md:flex-wrap max-md:mt-10 max-md:max-w-full">
               <div className="flex-auto self-end mt-6">票價: {event.price}</div>
-              <TicketStepper count={ticketCount} onIncrement={handleIncrement} onDecrement={handleDecrement} />
+              {/* <TicketStepper count={ticketCount} onIncrement={handleIncrement} onDecrement={handleDecrement} /> */}
               <button onClick={handleNextClick} className="justify-center px-4 py-1.5 my-auto bg-yellow-500 rounded-lg max-md:px-5" type="button">
                 下一步
               </button>

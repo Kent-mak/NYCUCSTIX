@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import NavBar from './NavBar';
-import EventCard from './EventCard';
+import NavBar from './pages/NavBar';
+import EventCard from './pages/EventCard';
 
 
 
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
       <NavBar />
       <div className="flex-grow flex justify-center items-center px-16 py-20 bg-white">
         <main className="flex flex-col items-center w-full">

@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Event from "../pages/Event";
 import MyTicket from "../pages/MyTicket";
 import Confirm from "../pages/Confirm";
+import Problem from "../pages/Problem";
 import Confirmed from "../pages/Confirmed";
 
 // import Login from "../pages/Login";
@@ -58,6 +59,10 @@ const Routes: React.FC = () => {
         {
           path: "confirm",
           element: <Confirm />,
+        },
+        {
+          path: "problem",
+          element: <Problem />,
         },
         {
           path: "confirmed",
