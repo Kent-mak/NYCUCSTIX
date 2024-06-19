@@ -11,9 +11,11 @@ import os
 from DB import DBClientWrapper
 from dotenv import dotenv_values
 from contextlib import asynccontextmanager
-# from routes import router
 from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user
 from authentication import create_access_token, get_current_user
+from Problem import generate_p_token, get_random_problem
+import random
+from SolveTask import solve_task
 
 
 config = dotenv_values(".env")
@@ -140,4 +142,46 @@ async def user_page(token):
     user['_id'] = str(user['_id'])
     print(user)
     return user
+
+@app.get('/get_problem')
+async def get_problem(token, event_name):
+    p_token, p_token_non_Binary = generate_p_token()
+    p_id = get_random_problem()
+    print(p_id)
+    try:
+        problem = database.get_collection("ProblemContents").find_one({"id": p_id})
+    except Exception as e:
+        print(f'Exception: {e}')
+
+    var = random.randint(int(problem['var_start']), int(problem['var_end']))
+    ans = solve_task(int(p_id), var)
+    print(f'var: {var}')
+    print(f'ans: {ans}')
+    try:
+        result = database.get_collection("Problems").insert_one({
+            "p_token": p_token,
+            "ans": ans,
+            "access_token": token,
+            "event_name": event_name
+        })
+
+        print(f'inserted: {result.inserted_id}')
+
+    except Exception as e:
+        print(f'error occurred while getting problem: {e}')
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f'error occurred while getting problem: {e}',
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    print(type(p_token_non_Binary))
+    response = {
+        "p_token": p_token_non_Binary,
+        "p_id": p_id,
+        "content": problem['content'],
+        "var": var
+    }
+
+    return response
 
