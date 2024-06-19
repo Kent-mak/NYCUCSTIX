@@ -11,9 +11,13 @@ import os
 from DB import DBClientWrapper
 from dotenv import dotenv_values
 from contextlib import asynccontextmanager
-# from routes import router
-from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user
+from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user, individual_serial_problems, list_serial_problems
 from authentication import create_access_token, get_current_user
+import uuid
+from bson import Binary
+from Problem import generate_p_token, get_random_problem
+import random
+from SolveTask import solve_task
 
 
 config = dotenv_values(".env")
@@ -86,6 +90,7 @@ async def handle_form(event_name: str = Form(...)):
 # handle 
 @app.get("/events/{event_name}", response_class=JSONResponse)
 async def get_events(event_name: str):
+    print(event_name)
     # event = collection_name.find_one({"name": event_name})
     event = database.get_collection("Events").find_one({"name": event_name})
     if event:
@@ -132,6 +137,101 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 # only login user can access this endpoint
 @app.get("/user_data")
-async def user_page(current_user: User = Depends(get_current_user)):
-    return current_user
+async def user_page(token):
+    user_name = await get_current_user(token)
+    print(user_name)
+    user = database.get_collection("Users").find_one({"name": user_name})
+    user['_id'] = str(user['_id'])
+    print(user)
+    return user
+
+@app.post("/checkans")
+async def verify_answer(access_token, p_token, ans: str):
+    # check if this exist in DB
+    print(type(p_token))
+    p_token = uuid.UUID(p_token)
+    p_token = Binary.from_uuid(p_token)
+    print(type(p_token))
+    answer = database.get_collection("Problems").find_one({"p_token": p_token})
+    # collection = database.get_collection("Problems").find()
+    # return list_serial_problems(collection)
+    if answer == None:  # if the token is not exist
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="You are using an invalid token."
+        )
+    
+    if answer["ans"] != ans:  # answer incorrect
+        print("from database: ", type(answer["ans"]))
+        print("ans:", type(ans))
+        
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Your answer is wrong! You idiot."
+        )
+        
+    else:  # the answer is correct
+        # find user with access token
+        print("access_token", access_token)
+        user_name = await get_current_user(access_token)
+        print("user_name = ", user_name)
+        # user = database.get_collection("Users").find_one({"name": user_name})
+        update_user = database.get_collection("Users")\
+                                    .update_one(
+                                        {"name": user_name, "events.name": answer["event_name"]},  # event need to check what is in database
+                                        {"$inc": {"events.$.count": 1}}
+                                    )
+        if update_user.matched_count == 0:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="update user database failed."
+            )
+        
+        # delete p_token in problems
+        database.get_collection("Problems").delete_one({"p_token": p_token})
+        content = {"msg": "your answer is correct! brilliant!"}
+        return JSONResponse(content=content, status_code=200)
+    
+    
+@app.get('/get_problem')
+async def get_problem(token, event_name):
+    p_token, p_token_non_Binary = generate_p_token()
+    p_id = get_random_problem()
+    print(p_id)
+    try:
+        problem = database.get_collection("ProblemContents").find_one({"id": p_id})
+    except Exception as e:
+        print(f'Exception: {e}')
+
+    var = random.randint(int(problem['var_start']), int(problem['var_end']))
+    ans = solve_task(int(p_id), var)
+    print(f'var: {var}')
+    print(f'ans: {ans}')
+    try:
+        result = database.get_collection("Problems").insert_one({
+            "p_token": p_token,
+            "ans": str(ans),
+            "access_token": token,
+            "event_name": event_name
+        })
+
+        print(f'inserted: {result.inserted_id}')
+
+    except Exception as e:
+        print(f'error occurred while getting problem: {e}')
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f'error occurred while getting problem: {e}',
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    print(type(p_token_non_Binary))
+    response = {
+        "p_token": p_token_non_Binary,
+        "p_id": p_id,
+        "content": problem['content'],
+        "var": var
+    }
+
+    return response
 
