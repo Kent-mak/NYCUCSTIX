@@ -160,7 +160,7 @@ async def get_problem(token, event_name):
     try:
         result = database.get_collection("Problems").insert_one({
             "p_token": p_token,
-            "ans": ans,
+            "ans": str(ans),
             "access_token": token,
             "event_name": event_name,
             "createdAt": datetime.now(timezone.utc)
