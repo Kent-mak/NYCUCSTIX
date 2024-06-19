@@ -163,8 +163,7 @@ async def verify_answer(access_token, p_token, ans: str):
     
     if answer["ans"] != ans:  # answer incorrect
         print("from database: ", type(answer["ans"]))
-        print("ans:", type(ans))
-        
+        database.get_collection("Problems").delete_one({"p_token": p_token})
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Your answer is wrong! You idiot."
