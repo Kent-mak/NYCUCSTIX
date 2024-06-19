@@ -10,20 +10,9 @@ config = dotenv_values(".env")
 JWT_SECRTE_KEY = config["JWT_SECRTE_KEY"]
 JWT_ALGORITHM = config["JWT_ALGORITHM"]
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
-DB_URI = config["ATLAS_URL"]
-DB_NAME = config["DB_NAME"]
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-db_client = DBClient(DB_URI, DB_NAME)
-database = db_client.get_database()
-# no need, except we store hash in database
-# def verify_password(plain_password, hashed_password):
-#     return pwd_context.verify(plain_password, hashed_password)
-
-# def get_password_hash(password):
-#     return pwd_context.hash(password)
 
 
 # functions

@@ -16,7 +16,7 @@ from authentication import create_access_token, get_current_user
 from Problem import generate_p_token, get_random_problem
 import random
 from SolveTask import solve_task
-
+from datetime import datetime, timezone
 
 config = dotenv_values(".env")
 DB_URI = config["MONGO_URL"]
@@ -162,7 +162,8 @@ async def get_problem(token, event_name):
             "p_token": p_token,
             "ans": ans,
             "access_token": token,
-            "event_name": event_name
+            "event_name": event_name,
+            "createdAt": datetime.now(timezone.utc)
         })
 
         print(f'inserted: {result.inserted_id}')
