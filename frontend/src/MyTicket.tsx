@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from './NavBar';
 
 const MyTicket: React.FC = () => {
-  // 定义活动数据数组
   const tickets = [
     {
       name: '理想渾蛋演唱會',
