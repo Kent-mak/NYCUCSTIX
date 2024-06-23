@@ -8,7 +8,8 @@ import UserNavBar from "./UserNavBar";
 const Problem: React.FC = () => {
 
   const navigate = useNavigate();
-  const handleNextClick = () => {navigate('/confirmed');};
+  const [errorMessage, setErrorMessage] = React.useState("");
+  
   const location = useLocation();
   const {event} = location.state || {};
   const [inputValue, setInputValue] = React.useState("");
@@ -21,8 +22,48 @@ const Problem: React.FC = () => {
     p_token: '',
     p_id: 0,
     content: '',
-    var: 0
+    var: ''
   });
+
+  const handleNextClick = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/checkans?access_token=${token}\
+        &p_token=${problems.p_token}&ans=${inputValue}`, {
+          method: 'POST',
+        });
+
+      if (response.status === 200) {
+        const result = await response.json();
+ 
+        console.log("Login successful:", result);
+        setErrorMessage(""); 
+        navigate('/confirmed', { replace: true, state: {} });
+        // navigate('/confirmed')
+        
+      } else if (response.status === 404) {
+        const errorResult = await response.json();
+        setErrorMessage("IDIOT");
+        console.error("haha", errorResult);
+        // navigate('/confirmed_error')
+        navigate('/confirmed_error', { replace: true, state: {} });
+        // Handle login failure (e.g., show error message to the user)
+
+      } else {
+        setErrorMessage("An unexpected error occurred. Please try again later.");
+        console.error("Unexpected response status:", response.status);
+        navigate('/confirmed_error', { replace: true, state: {} })
+        // Handle other unexpected statuses
+      }
+    } catch (error) {
+      setErrorMessage("Network error. Please check your connection.");
+      console.error('Error:', error);
+      navigate('/confirmed_error', { replace: true, state: {} })
+      // Handle network or other errors
+    } 
+    // finally {
+      
+    // }
+  };
 
   useEffect(() => {
     
