@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from schema import list_serial, individual_serial
-from DBClient import DBClient
+from manageDB.DBClient import DBClient
 from bson import ObjectId
 from dotenv import dotenv_values
 

@@ -180,11 +180,18 @@ async def verify_answer(access_token, p_token, ans: str):
                                         {"name": user_name, "events.name": answer["event_name"]},  # event need to check what is in database
                                         {"$inc": {"events.$.count": 1}}
                                     )
+        print(f"matched count {update_user.matched_count}")
         if update_user.matched_count == 0:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="update user database failed."
+            add_ticket = database.get_collection("Users").update_one(
+                {"name": user_name},
+                {"$push": {"events": {"name": answer["event_name"], "count": 1}}}
             )
+
+
+            # raise HTTPException(
+            #     status_code=status.HTTP_404_NOT_FOUND,
+            #     detail="update user database failed."
+            # )
         
         # delete p_token in problems
         database.get_collection("Problems").delete_one({"p_token": p_token})
