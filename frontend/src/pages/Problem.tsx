@@ -69,11 +69,30 @@ const Problem: React.FC = () => {
   useEffect(() => {
     
     const fetchProblems = async () => {
-      const response = await fetch(`http://127.0.0.1:8000/get_problem?token=${token}&event_name=${event['name']}`);
-      const jsonData = await response.json();
-      jsonData['render'] = true;
-      console.log(jsonData);
-      setProblems(jsonData);
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/get_problem?token=${token}&event_name=${event['name']}`);
+        const jsonData = await response.json();
+        setProblems(jsonData);
+        console.log(jsonData);
+
+        if(response.status === 200) {
+          console.log("fetch problems successful");
+          setErrorMessage("");
+          jsonData['render'] = true;
+        }
+        else if(response.status === 404) {
+          console.log("fetch problems failed");
+          setErrorMessage("IDIOT");
+          navigate('/badpage', { replace: true, state: {} });
+        }
+
+      } catch (error) {
+        setErrorMessage("Network error. Please check your connection.");
+        console.error('Error fetching problems:', error);
+        navigate('/badpage', { replace: true, state: {} }); 
+      }
+
+
     }
     fetchProblems();
     

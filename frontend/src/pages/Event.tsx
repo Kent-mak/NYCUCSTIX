@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../provider/AuthProvider"; 
 import UserNavBar from "./UserNavBar";
+import { render } from "react-dom";
 
 /*type TicketStepperProps = {
   count: number;
@@ -46,7 +47,8 @@ const Event: React.FC = () => {
     date: '',
     tickets_remaning: 0,
     price: 0,
-    location: ''
+    location: '',
+    render: false
   });
 
   const params = useParams<{ event_name: string }>();
@@ -66,6 +68,7 @@ const Event: React.FC = () => {
         const jsonData = await response.json();
         console.log(jsonData);
         setEvent(jsonData);
+        jsonData['render'] = true;
       } catch (error) {
         console.error('Error fetching event:', error);
       }

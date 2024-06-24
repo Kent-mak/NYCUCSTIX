@@ -64,6 +64,14 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+
+def eventExist(event_name):
+    events =  database.get_collection("Events").find()
+    for event in events:
+        if event["name"] == event_name:
+            return True
+    return False
+
 # endpoints:
 # # homepage
 @app.get("/")
@@ -201,13 +209,16 @@ async def verify_answer(access_token, p_token, ans: str):
     
 @app.get('/get_problem')
 async def get_problem(token, event_name):
+
+    if not eventExist(event_name):
+        raise HTTPException(
+            status_code=404,
+            detail="Event doesn't exist"
+        )
+
     p_token, p_token_non_Binary = generate_p_token()
-    if event_name == "Dog Day":
-        p_id = get_random_problem()
-    else:
-        p_id = 0
+    p_id = get_random_problem(event_name)
     print(p_id)
-    print(p_token_non_Binary)
     try:
         problem = database.get_collection("ProblemContents").find_one({"id": p_id})
     except Exception as e:
@@ -245,4 +256,3 @@ async def get_problem(token, event_name):
     }
 
     return response
-
