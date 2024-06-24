@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     # 連結到指定網址
     driver.get(url)                
-    print("現在所在網址: ", url)
+    print("回到首頁: ", url)
 
 
     # 透過 XPath 找到登入按鈕，並點擊
@@ -31,8 +31,8 @@ if __name__ == '__main__':
     print("現在所在網址: ", driver.current_url)
     loginAccount = Wait.until(EC.presence_of_element_located((By.XPATH, '//input[@id="account"]')), "Find Account Input Error")
     loginPassword = Wait.until(EC.presence_of_element_located((By.XPATH, '//input[@id="password"]')), "Find Password Input Error")
-    myAccount = "Group1"
-    myPassword = "cscamp1"
+    myAccount = "Test"
+    myPassword = "testuser"
     print("輸入帳號: ", myAccount)
     loginAccount.send_keys("Group1")
     print("輸入密碼: ", myPassword)
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     # 等待 0.5 秒，確認是否登入成功
     time.sleep(0.5)
     print("現在所在網址: ", driver.current_url)
-    print("預期網址: ", url + "my_ticket")
+    print("預期網址: ", url + "myticket")
     if driver.current_url == url + "myticket": 
         print("登入成功")
     else:
@@ -54,38 +54,49 @@ if __name__ == '__main__':
         driver.close()
         exit()
 
+    print('-----------------------------------')
+
 
     # 無限迴圈購票
     while True:
         # 回到首頁
         driver.get(url)
-        print("現在所在網址: ", driver.current_url)
+        print("回到首頁: ", driver.current_url)
         
 
         # 透過 XPath 找到購票按鈕，並點擊
         targetXPATH = "//article[.//h2[text()='新手村']]//button"
         targetButton = Wait.until(EC.presence_of_element_located((By.XPATH, targetXPATH)), "Error finding target ticket")
-        buyButton=Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="我要買"]')), "我要買")
-        print(buyButton.text)
-        buyButton.click()
+        print("點擊購票按鈕: ", targetButton.text)
+        targetButton.click()
+        print("點擊我要買後的網址: ", driver.current_url)
 
 
-        nextStep=Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="下一步"]')), "Error")
-        print(nextStep.text)
-        # nextStep=driver.find_elements(By.XPATH, '//button')
+        # 透過 XPath 找到下一步按鈕，並點擊
+        nextStep=Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="下一步"]')), "Error finding next step button")
+        print("點擊下一步: ", nextStep.text)
         nextStep.click()
+        print("點擊下一步後的網址: ", driver.current_url)
+
+        time.sleep(1)
 
         # driver.implicitly_wait(5)
-        time.sleep(0.15) 
-        input=Wait.until(EC.presence_of_element_located((By.XPATH, '//div[text()="輸入: "]')), "Error")
+        input=Wait.until(EC.presence_of_element_located((By.XPATH, '//div[text()="輸入: "]')), "Error finding input box")
         print(input.text)
         input=input.text.split(' ')
         print(input[1])
-        answerBoard=Wait.until(EC.presence_of_element_located((By.XPATH, '//textarea')), "Error")
+        answerBoard=Wait.until(EC.presence_of_element_located((By.XPATH, '//textarea')), "Error finding answer board")
         answerBoard.send_keys(input[1])
         
-        submitButton=Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="確認答案，送出"]')), "Error")
+        submitButton=Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="確認答案，送出"]')), "Error finding submit button")
+        print("點擊確認答案，送出")
         submitButton.click()
+
+        time.sleep(2)
+
+        print("送出答案後的網址: ", driver.current_url) 
+
+        print("-----------------------------------")
 
 
     time.sleep(1)
