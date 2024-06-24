@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useAuth } from "../provider/AuthProvider"; 
 import UserNavBar from "./UserNavBar";
+import ReactMarkdown from 'react-markdown';
 
 const Problem: React.FC = () => {
 
@@ -89,9 +90,10 @@ const Problem: React.FC = () => {
             問題 {problems.p_id}
           </div>
           <div className="self-start mt-8 leading-8 max-md:max-w-full">
-            {problems.content}
+            <ReactMarkdown>{problems.content}</ReactMarkdown>
+            
           </div>
-          {problems.render && <div className="mt-8 max-md:max-w-full">輸入: {problems.var}</div>}
+          {problems.render && <div className="mt-8 max-md:max-w-full"> 輸入: {problems.var}</div>}
           <div className="mt-8 max-md:max-w-full">輸出 (請作答) :</div>
           <div className="flex gap-5 justify-between mt-8 font-bold text-black whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
             {/* <div className="shrink-0 max-w-full bg-zinc-300 h-[212px] w-[463px]" /> */}
