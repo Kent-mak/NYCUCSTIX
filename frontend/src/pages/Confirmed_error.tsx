@@ -7,9 +7,9 @@ const Confirmed_error: React.FC = () => {
   const { token } = useAuth();
   
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
         {token ? <UserNavBar /> : <NavBar />}
-        <div className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
+        <div className="flex-grow flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
             <div className="flex flex-col justify-end items-start py-12 pr-16 pl-12 mt-48 w-full bg-white rounded-xl shadow-md max-w-[1204px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
                 <div className="flex flex-col justify-center max-w-full text-4xl font-semibold leading-10 text-black whitespace-nowrap w-[441px]">
                     <div className="justify-center max-md:max-w-full">

@@ -7,7 +7,7 @@ type MenuItemProps = {
 };
 
 const MenuItem: React.FC<MenuItemProps> = ({ text, onClick}) => (
-  <div className="text-lg font-bold" onClick={onClick}>{text}</div>
+  <div className="text-lg font-bold cursor-pointer hover:text-yellow-500" onClick={onClick}>{text}</div>
 );
 
 const NavBar: React.FC = () => {
@@ -39,9 +39,9 @@ const NavBar: React.FC = () => {
         </div>
       </nav>
       <div className="flex gap-3 text-base font-medium text-black">
-        <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0}>
+        {/* <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0}>
           註冊
-        </button>
+        </button> */}
         <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0} onClick={handleLoginClick}>
           登入
         </button>

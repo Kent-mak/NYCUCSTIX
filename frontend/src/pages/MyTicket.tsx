@@ -45,7 +45,7 @@ const MyTicket: React.FC = () => {
               </div>
               <div className="flex gap-5 justify-between self-end mt-16 max-w-full text-xl font-bold leading-8 w-[859px] max-md:flex-wrap max-md:mt-10">
                 <div>活動名稱</div>
-                <div>活動時間</div>
+                {/* <div>活動時間</div> */}
                 <div>票數</div>
               </div>
             </div>

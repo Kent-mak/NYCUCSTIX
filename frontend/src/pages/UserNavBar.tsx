@@ -8,7 +8,7 @@ type MenuItemProps = {
 };
 
 const MenuItem: React.FC<MenuItemProps> = ({ text, onClick}) => (
-  <div className="text-lg font-bold" onClick={onClick}>{text}</div>
+  <div className="text-lg font-bold cursor-pointer hover:text-yellow-500" onClick={onClick}>{text}</div>
 );
 
 const NavBar: React.FC = () => {

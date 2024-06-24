@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const response = await fetch('http://127.0.0.1:8000');
+      const response = await fetch('http://localhost:8000');
       const jsonData = await response.json();
       console.log(jsonData);
       setEvents(jsonData);
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
   console.log(events);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
       {token ? <UserNavBar /> : <NavBar />}
       <div className="flex-grow flex justify-center items-center px-16 py-20 bg-white">
         <main className="flex flex-col items-center w-full">
@@ -37,7 +37,8 @@ const Home: React.FC = () => {
                 imageAlt={event['name']}
                 title={event['name']}
                 subtitle={event['name']}
-                date={event['date']}
+                // date={event['date']}
+                date = {`${event['date'].substring(0,4)}.${event['date'].substring(5,7)}.${event['date'].substring(8,10)} ${event['date'].substring(11,13)}:${event['date'].substring(14,16)}`}
                 buttonText={"我要買"}
                 buttonAriaLabel={`buy ticket for ${event['name']}`}
               />
