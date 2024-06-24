@@ -28,7 +28,7 @@ const Problem: React.FC = () => {
 
   const handleNextClick = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/checkans?access_token=${token}&p_token=${problems.p_token}&ans=${inputValue}`, 
+      const response = await fetch(`http://127.0.0.1:8000/checkans?access_token=${token}&p_token=${problems.p_token}&ans=${encodeURIComponent(inputValue)}`, 
         {
           method: 'POST',
         });
