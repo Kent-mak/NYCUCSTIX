@@ -39,9 +39,9 @@ const NavBar: React.FC = () => {
         </div>
       </nav>
       <div className="flex gap-3 text-base font-medium text-black">
-        <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0}>
+        {/* <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0}>
           註冊
-        </button>
+        </button> */}
         <button className="justify-center px-4 py-2 bg-white rounded-lg" tabIndex={0} onClick={handleLoginClick}>
           登入
         </button>
