@@ -211,7 +211,7 @@ async def verify_answer(access_token, p_token, ans: str):
 async def get_problem(token, event_name):
 
     if not eventExist(event_name):
-        return HTTPException(
+        raise HTTPException(
             status_code=404,
             detail="Event doesn't exist"
         )
