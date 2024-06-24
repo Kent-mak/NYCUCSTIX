@@ -202,7 +202,7 @@ async def verify_answer(access_token, p_token, ans: str):
 @app.get('/get_problem')
 async def get_problem(token, event_name):
     p_token, p_token_non_Binary = generate_p_token()
-    p_id = get_random_problem()
+    p_id = get_random_problem(event_name)
     print(p_id)
     try:
         problem = database.get_collection("ProblemContents").find_one({"id": p_id})
