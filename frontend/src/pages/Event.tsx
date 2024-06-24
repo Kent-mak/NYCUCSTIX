@@ -93,9 +93,12 @@ const Event: React.FC = () => {
             <article className="max-md:max-w-full">
               <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                 <div className="flex flex-col w-[45%] max-md:ml-0 max-md:w-full">
-                  <h1 className="grow mt-10 text-3xl font-semibold tracking-tighter leading-8 text-black whitespace-nowrap max-md:mt-10">
-                    {event.name}
-                  </h1>
+                  {
+                    event.render &&
+                    <h1 className="grow mt-10 text-3xl font-semibold tracking-tighter leading-8 text-black whitespace-nowrap max-md:mt-10">
+                      {event.name}
+                    </h1>
+                  }
                   <img
                     loading="lazy"
                     src={event.photo}
@@ -115,9 +118,12 @@ const Event: React.FC = () => {
             <div className="flex gap-5 items-start mt-20 w-full text-xl font-bold leading-8 text-black whitespace-nowrap max-md:flex-wrap max-md:mt-10 max-md:max-w-full">
               <div className="flex-auto self-end mt-6">票價: {event.price}</div>
               {/* <TicketStepper count={ticketCount} onIncrement={handleIncrement} onDecrement={handleDecrement} /> */}
-              <button onClick={handleNextClick} className="justify-center px-4 py-1.5 my-auto bg-yellow-500 rounded-lg max-md:px-5" type="button">
-                下一步
-              </button>
+              {
+                event.render &&
+                <button onClick={handleNextClick} className="justify-center px-4 py-1.5 my-auto bg-yellow-500 rounded-lg max-md:px-5" type="button">
+                  下一步
+                </button>
+              }
             </div>
           </section>
         </main>

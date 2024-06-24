@@ -107,7 +107,7 @@ const Problem: React.FC = () => {
           <div className="justify-center self-start text-4xl font-semibold tracking-tighter leading-9 text-black">
             問題 {problems.p_id}
           </div>
-          <div className="self-start mt-8 leading-8 max-md:max-w-full">
+          <div className="self-start mt-8 leading-8 max-md:max-w-full content">
             {problems.content}
           </div>
           {problems.render && <div className="mt-8 max-md:max-w-full">輸入: {problems.var}</div>}
