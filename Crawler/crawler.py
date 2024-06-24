@@ -1,49 +1,75 @@
-import requests
-from lxml import etree
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-import os
 
+url = "http://localhost:5173/"
 
-header={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'}
-url="http://localhost:5173/"
+if __name__ == '__main__':
 
-if __name__=='__main__':
+    # 開啟 Chrome 瀏覽器
     driver = webdriver.Chrome()
-    driver.get(url)
-    driver.implicitly_wait(10)
-    Wait=WebDriverWait(driver, 5)
-    login=driver.find_elements(By.XPATH, '//button')
-    loginButton=login[1]
-    login[1].click()
 
-    inputs=driver.find_elements(By.XPATH, '//input')
-    inputs[0].send_keys('Kent')
-    inputs[1].send_keys('kent')
 
-    signInButton=Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="Sign in"]')), "Error")
+    # 創造一個 WebDriverWait 物件，等待時間設定為 5 秒
+    Wait = WebDriverWait(driver, 5)
+
+
+    # 連結到指定網址
+    driver.get(url)                
+    print("現在所在網址: ", url)
+
+
+    # 透過 XPath 找到登入按鈕，並點擊
+    loginButton = Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="登入"]')), "Find Login Button Error")
+    print("點擊登入按鈕")
+    loginButton.click()
+
+
+    # 找到帳號、密碼輸入框，並輸入帳號、密碼
+    print("現在所在網址: ", driver.current_url)
+    loginAccount = Wait.until(EC.presence_of_element_located((By.XPATH, '//input[@id="account"]')), "Find Account Input Error")
+    loginPassword = Wait.until(EC.presence_of_element_located((By.XPATH, '//input[@id="password"]')), "Find Password Input Error")
+    myAccount = "Group1"
+    myPassword = "cscamp1"
+    print("輸入帳號: ", myAccount)
+    loginAccount.send_keys("Group1")
+    print("輸入密碼: ", myPassword)
+    loginPassword.send_keys("cscamp1")
+
+    signInButton = Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="Sign in"]')), "Find Sign In Button Error")
+    print("點擊 Sign in 按鈕")
     signInButton.click()
-    time.sleep(3)
-    # driver.implicitly_wait(5) 
-    # tiky=driver.find_element(By.XPATH, '//div[text()="活動一覽"]')
-    # tiky.click()
+
+
+    # 等待 0.5 秒，確認是否登入成功
+    time.sleep(0.5)
+    print("現在所在網址: ", driver.current_url)
+    print("預期網址: ", url + "my_ticket")
+    if driver.current_url == url + "myticket": 
+        print("登入成功")
+    else:
+        print("登入失敗")
+        driver.close()
+        exit()
+
+
+    # 無限迴圈購票
     while True:
-        
+        # 回到首頁
         driver.get(url)
-        # tiky=Wait.until(EC.presence_of_element_located((By.XPATH, '//nav/div/div[2]')), "Error")
-        # tiky=driver.find_element(By.XPATH, '//div[text()="活動一覽"]')
-        # tiky.click()
+        print("現在所在網址: ", driver.current_url)
         
-        print(driver.current_url)
-        # driver.implicitly_wait(5) 
+
+        # 透過 XPath 找到購票按鈕，並點擊
+        targetXPATH = "//article[.//h2[text()='新手村']]//button"
+        targetButton = Wait.until(EC.presence_of_element_located((By.XPATH, targetXPATH)), "Error finding target ticket")
         buyButton=Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="我要買"]')), "我要買")
         print(buyButton.text)
         buyButton.click()
 
-        # driver.implicitly_wait(5) 
+
         nextStep=Wait.until(EC.presence_of_element_located((By.XPATH, '//button[text()="下一步"]')), "Error")
         print(nextStep.text)
         # nextStep=driver.find_elements(By.XPATH, '//button')
