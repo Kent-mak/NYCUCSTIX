@@ -1,6 +1,6 @@
 import requests
 
-url = "https://127.0.0.1:8001"
+url = "http://127.0.0.1:8000"
 
 def reset_users():
     try:
@@ -26,7 +26,7 @@ def edit_user(user):
 
 if __name__ == "__main__":
     while True:
-        operation = input("operation (1: reset users, 2: edit user, 3: edit event, 4: insert user, 5: insert event) : ")
+        operation = int(input("operation (1: reset users, 2: edit user, 3: edit event, 4: insert user, 5: insert event) : "))
         if operation == 1:
             reset_users()
         elif operation == 2:

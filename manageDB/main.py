@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from manageDB.DBClient import DBClient
+from DBClient import DBClient
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
 from bson import json_util
 import datetime
@@ -45,10 +45,9 @@ async def insert_event(request: Request):
 
 @app.put('/reset_users')
 async def resetUsers():
-    Users = db_client.database['Users'] 
 
     reset_users = {"$set": {"events": []}}
-    result = Users.update_many({}, reset_users)
+    result = db_client.database['Users'].update_many({}, reset_users)
     print(result.upserted_id)
     return JSONResponse(
         content="User reset success",

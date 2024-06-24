@@ -1,4 +1,3 @@
-
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from fastapi import FastAPI, Form, Request, Depends, HTTPException, status
@@ -209,13 +208,6 @@ async def verify_answer(access_token, p_token, ans: str):
     
 @app.get('/get_problem')
 async def get_problem(token, event_name):
-
-    if not eventExist(event_name):
-        raise HTTPException(
-            status_code=404,
-            detail="Event doesn't exist"
-        )
-
     p_token, p_token_non_Binary = generate_p_token()
     p_id = get_random_problem(event_name)
     print(p_id)
