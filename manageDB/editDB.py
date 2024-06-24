@@ -1,4 +1,4 @@
-from DBClient import DBClient
+from manageDB.DBClient import DBClient
 
 DB_URI = "mongodb://167.99.69.49:27017/"
 DB_NAME = 'CSTIX'
