@@ -1,9 +1,11 @@
+# -------------- Step 0: import 套件 -------------- 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+# -------------- Step 1: 前置作業 -------------- 
 url = "http://localhost:5173/"
 
 if __name__ == '__main__':
@@ -21,7 +23,8 @@ if __name__ == '__main__':
     print("回到首頁: ", url)
 
 
-    # 透過 XPath 找到登入按鈕，並點擊
+    # -------------- Step 2: 登入 -------------- 
+    # TODO: 透過 XPath 找到登入按鈕，並點擊
     loginButtonXPATH = '//button[text()="登入"]'
     loginButton = Wait.until(EC.presence_of_element_located((By.XPATH, loginButtonXPATH)), "Find Login Button Error")
     originalURL = driver.current_url
@@ -30,30 +33,37 @@ if __name__ == '__main__':
     Wait.until(EC.url_changes(originalURL), "Not going to login page")
 
 
-    # 找到帳號、密碼輸入框，並輸入帳號、密碼
+    # TODO: 透過 XPath 找到帳號、密碼輸入框
     print("現在所在網址: ", driver.current_url)
-    # loginAccountXPath = 
-    # loginPasswordXPath = 
+    loginAccountXPath = "___(?)___"
+    loginPasswordXPath = "___(?)___"
     loginAccount = Wait.until(EC.presence_of_element_located((By.XPATH, loginAccountXPath)), "Find Account Input Error")
     loginPassword = Wait.until(EC.presence_of_element_located((By.XPATH, loginPasswordXPath)), "Find Password Input Error")
-    # myAccount = 
-    # myPassword = 
-    # TODO: 填入帳號
+    
+    # TODO: 填入帳號並送出
+    myAccount = "___(?)___"  # 第一組是 Group1，以此類推
+    # 這裡記得要送出帳號喔! 
+    # HINT: send_keys()
     print("輸入帳號: ", myAccount)
-    # TODO: 填入密碼
+    
+    # TODO: 填入密碼並送出
+    myPassword = "___(?)___"
+    # 這裡記得要送出密碼喔! 
+    # HINT: send_keys()
     print("輸入密碼: ", myPassword)
 
 
-    # 透過 XPath 找到登入按鈕，並點擊，確認有重導向到我的票券頁面
-    # signInButtonXPATH = 
+    # TODO: 透過 XPath 找到"Sign in"按鈕
+    signInButtonXPATH = "___(?)___"
     signInButton = Wait.until(EC.presence_of_element_located((By.XPATH, signInButtonXPATH)), "Find Sign In Button Error")
     print("點擊 Sign in 按鈕")
     originalURL = driver.current_url
+    # 點擊"Sign in"按鈕，並確認有重導向到我的票券頁面
     signInButton.click()
     Wait.until(EC.url_changes(originalURL), "Not going to myticket page")
 
 
-    # 無限迴圈購票
+    # -------------- Step 3: 無限迴圈購票 --------------
     while True:
         print("-----------------------------------")
         # 回到首頁
@@ -63,43 +73,48 @@ if __name__ == '__main__':
         print("回到首頁: ", driver.current_url)
         
 
-        # 透過 XPath 找到購票按鈕，並點擊
-        # targetXPATH = 
+        # TODO: 透過 XPath 找到"我要買"按鈕
+        targetXPATH = "___(?)___"
         targetButton = Wait.until(EC.presence_of_element_located((By.XPATH, targetXPATH)), "Error finding target ticket")
         originalURL = driver.current_url
         print("點擊購票按鈕: ", targetButton.text)
-        targetButton.click()
+        # TODO: 點擊"我要買"按鈕
+        
         Wait.until(EC.url_changes(originalURL), "Not going to ticket page")
         print("點擊我要買後的網址: ", driver.current_url)
 
 
-        # 透過 XPath 找到下一步按鈕，並點擊
-        # nextStepXPATH = 
+        # TODO: 透過 XPath 找到"下一步"按鈕
+        nextStepXPATH = "___(?)___"
         nextStep = Wait.until(EC.presence_of_element_located((By.XPATH, nextStepXPATH)), "Error finding next step button")
         print("點擊下一步: ", nextStep.text)
         originalURL = driver.current_url
+        # 點擊"下一步"按鈕
         nextStep.click()
         Wait.until(EC.url_changes(originalURL), "Not going to next step (problem page)")
         print("點擊下一步後的網址: ", driver.current_url)
 
-
-        # 透過 XPath 找到輸入數字
-        # inputXPATH = 
+        # -------------- Step 4: 驗證 --------------
+        # TODO: 透過 XPath 找到輸入值數字
+        inputXPATH = "___(?)___"
         input = Wait.until(EC.presence_of_element_located((By.XPATH, inputXPATH)), "Error finding input box")
-        # TODO: 找到輸入數字
+        # TODO: 找到輸入數字 (Hint: 字串處理split)
 
         
-        # 透過 XPath 找到答案輸入框，並輸入答案
-        # answerBoardXPATH = 
+
+        # TODO: 透過 XPath 找到答案輸入框
+        answerBoardXPATH = "___(?)___"
         answerBoard=Wait.until(EC.presence_of_element_located((By.XPATH, answerBoardXPATH)), "Error finding answer board")
-        # TODO: 填入答案
+        # TODO: 填入答案 (HINT: send_keys())
+        # 要填入的答案是甚麼呢?
 
 
-        # 透過 XPath 找到確認答案，送出按鈕，並點擊 
-        # submitButtonXPATH = 
+        # TODO: 透過 XPath 找到"確認答案，送出"按鈕
+        submitButtonXPATH = "___(?)___"
         submitButton=Wait.until(EC.presence_of_element_located((By.XPATH, submitButtonXPATH)), "Error finding submit button")
         print("點擊確認答案，送出")
         originalURL = driver.current_url
+        # 點擊"確認答案，送出"按鈕
         submitButton.click()
         Wait.until(EC.url_changes(originalURL), "Not going to confirmation page")
         print("送出答案後的網址: ", driver.current_url) 

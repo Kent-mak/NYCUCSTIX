@@ -84,9 +84,9 @@ if __name__ == '__main__':
 
 
         # 透過 XPath 找到輸入數字
-        inputXPATH = '//div[text()="輸入: "]'
+        inputXPATH = '//div[text()="輸入:"]'
         input = Wait.until(EC.presence_of_element_located((By.XPATH, inputXPATH)), "Error finding input box")
-        input = input.text.split(' ')
+        input = input.text.split('\n')
         print("輸入數字: ", input[1])
 
         

@@ -7,16 +7,32 @@ import EventCard from './EventCard';
 const Home: React.FC = () => {
   const { token } = useAuth();
   const [events, setEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true; // Add this flag to track if the component is mounted
+  
     const fetchEvents = async () => {
       const response = await fetch('http://localhost:8000');
       const jsonData = await response.json();
       console.log(jsonData);
-      setEvents(jsonData);
-    }
+      setLoading(false);
+  
+      if (isMounted) {
+        setEvents(jsonData);
+      }
+    };
+  
     fetchEvents();
+  
+    return () => {
+      isMounted = false; // Set the flag to false when the component unmounts
+    };
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   console.log(events);
 
