@@ -154,8 +154,14 @@ async def user_page(token):
     return user
 
 @app.post("/checkans")
-async def verify_answer(access_token, p_token, ans: str):
+async def verify_answer(request: Request):
     # check if this exist in DB
+    body = await request.json()
+    access_token = body["access_token"]
+    p_token = body["p_token"]
+    ans = body["ans"]
+    print(p_token)
+    print(ans)
     print(type(p_token))
     p_token = uuid.UUID(p_token)
     p_token = Binary.from_uuid(p_token)

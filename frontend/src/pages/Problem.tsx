@@ -26,12 +26,19 @@ const Problem: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
+    console.log(inputValue);
+    
   };
 
   const handleNextClick = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/checkans?access_token=${token}&p_token=${problems.p_token}&ans=${inputValue}`, {
+      const response = await fetch(`http://127.0.0.1:8000/checkans`, {
         method: 'POST',
+        body: JSON.stringify({
+          access_token: token,
+          p_token: problems.p_token,
+          ans: inputValue
+        })
       });
 
       if (response.status === 200) {
