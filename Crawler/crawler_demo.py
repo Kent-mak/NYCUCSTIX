@@ -32,20 +32,20 @@ if __name__ == '__main__':
 
     # 找到帳號、密碼輸入框，並輸入帳號、密碼
     print("現在所在網址: ", driver.current_url)
-    loginAccountXPath = '//input[@id="account"]'
-    loginPasswordXPath = '//input[@id="password"]'
+    # loginAccountXPath = 
+    # loginPasswordXPath = 
     loginAccount = Wait.until(EC.presence_of_element_located((By.XPATH, loginAccountXPath)), "Find Account Input Error")
     loginPassword = Wait.until(EC.presence_of_element_located((By.XPATH, loginPasswordXPath)), "Find Password Input Error")
-    myAccount = "Test"
-    myPassword = "testuser"
-    loginAccount.send_keys(myAccount)
+    # myAccount = 
+    # myPassword = 
+    # TODO: 填入帳號
     print("輸入帳號: ", myAccount)
-    loginPassword.send_keys(myPassword)
+    # TODO: 填入密碼
     print("輸入密碼: ", myPassword)
 
 
     # 透過 XPath 找到登入按鈕，並點擊，確認有重導向到我的票券頁面
-    signInButtonXPATH = '//button[text()="Sign in"]'
+    # signInButtonXPATH = 
     signInButton = Wait.until(EC.presence_of_element_located((By.XPATH, signInButtonXPATH)), "Find Sign In Button Error")
     print("點擊 Sign in 按鈕")
     originalURL = driver.current_url
@@ -64,7 +64,7 @@ if __name__ == '__main__':
         
 
         # 透過 XPath 找到購票按鈕，並點擊
-        targetXPATH = "//article[.//h2[text()='新手村']]//button"
+        # targetXPATH = 
         targetButton = Wait.until(EC.presence_of_element_located((By.XPATH, targetXPATH)), "Error finding target ticket")
         originalURL = driver.current_url
         print("點擊購票按鈕: ", targetButton.text)
@@ -74,8 +74,8 @@ if __name__ == '__main__':
 
 
         # 透過 XPath 找到下一步按鈕，並點擊
-        nextStepXPATH = '//button[text()="下一步"]'
-        nextStep=Wait.until(EC.presence_of_element_located((By.XPATH, nextStepXPATH)), "Error finding next step button")
+        # nextStepXPATH = 
+        nextStep = Wait.until(EC.presence_of_element_located((By.XPATH, nextStepXPATH)), "Error finding next step button")
         print("點擊下一步: ", nextStep.text)
         originalURL = driver.current_url
         nextStep.click()
@@ -84,21 +84,19 @@ if __name__ == '__main__':
 
 
         # 透過 XPath 找到輸入數字
-        inputXPATH = '//div[text()="輸入: "]'
+        # inputXPATH = 
         input = Wait.until(EC.presence_of_element_located((By.XPATH, inputXPATH)), "Error finding input box")
-        input = input.text.split(' ')
-        print("輸入數字: ", input[1])
+        # TODO: 找到輸入數字
 
         
         # 透過 XPath 找到答案輸入框，並輸入答案
-        answerBoardXPATH = '//textarea'
+        # answerBoardXPATH = 
         answerBoard=Wait.until(EC.presence_of_element_located((By.XPATH, answerBoardXPATH)), "Error finding answer board")
-        answerBoard.send_keys(input[1])
-        print("填入輸出答案: ", input[1])
+        # TODO: 填入答案
 
 
         # 透過 XPath 找到確認答案，送出按鈕，並點擊 
-        submitButtonXPATH = '//button[text()="確認答案，送出"]'
+        # submitButtonXPATH = 
         submitButton=Wait.until(EC.presence_of_element_located((By.XPATH, submitButtonXPATH)), "Error finding submit button")
         print("點擊確認答案，送出")
         originalURL = driver.current_url

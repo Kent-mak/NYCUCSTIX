@@ -1,5 +1,5 @@
 
-from DBClient import DBClient
+from manageDB.DBClient import DBClient
 
 # DB_URI = "mongodb+srv://developer:cs15@cstix1.qizcotr.mongodb.net/?retryWrites=true&w=majority&appName=CSTIX1"
 DB_URI = "mongodb://root:donthackcscamp2024@167.99.69.49:27017/"

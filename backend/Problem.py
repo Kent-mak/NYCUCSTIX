@@ -12,5 +12,7 @@ def generate_p_token():
     uuid_token = uuid.uuid4()
     return Binary.from_uuid(uuid_token, uuid_representation=4), uuid_token
 
-def get_random_problem():
+def get_random_problem(event_name: str):
+    if event_name == "新手村":
+        return 0
     return random.randint(0, int(config["PROBLEM_COUNT"])-1)

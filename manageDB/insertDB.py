@@ -36,7 +36,7 @@ def insertEvents():
             continue
         photo = input("photo url: ")
         description = input("description: ")
-        tickets_remaining = input("tickets remaining: ")
+        tickets_remaining = int(input("tickets remaining: "))
         year = int(input("year: "))
         month = int(input("month: "))
         day = int(input("day: "))

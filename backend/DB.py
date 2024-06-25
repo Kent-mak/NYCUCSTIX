@@ -49,3 +49,4 @@ class DBClientWrapper():
     def close(self):
         if self.db_client:
             self.db_client.close()
+
