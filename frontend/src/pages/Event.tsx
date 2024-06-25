@@ -46,7 +46,7 @@ const Event: React.FC = () => {
     const fetchEvent = async () => {
       try {
         console.log(`Fetching event: ${event_name}`);
-        const response = await fetch(`http://127.0.0.1:8000/events/${event_name}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/events/${event_name}`);
         const jsonData = await response.json();
         console.log(jsonData);
         if (isMounted) {

@@ -1,6 +1,6 @@
 import requests
 
-url = "http://127.0.0.1:8000"
+url = "${import.meta.env.VITE_BACKEND_URL}"
 
 def reset_users():
     try:

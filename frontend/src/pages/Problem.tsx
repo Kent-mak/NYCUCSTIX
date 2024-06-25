@@ -38,7 +38,7 @@ const Problem: React.FC = () => {
 
   const handleNextClick = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/checkans`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/checkans`, {
         method: 'POST',
         body: JSON.stringify({
           access_token: token,
@@ -67,7 +67,7 @@ const Problem: React.FC = () => {
   useEffect(() => {
     const fetchProblems = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/get_problem?token=${token}&event_name=${event['name']}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/get_problem?token=${token}&event_name=${event['name']}`);
         const jsonData = await response.json();
         jsonData['render'] = true;
         setProblems(jsonData);
