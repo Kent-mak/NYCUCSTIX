@@ -254,7 +254,8 @@ async def get_problem(token, event_name):
         "p_token": p_token_non_Binary,
         "p_id": p_id,
         "content": problem['content'],
-        "var": var
+        "var": var,
+        "name": problem['name']
     }
 
     return response
