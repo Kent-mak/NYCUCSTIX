@@ -1,4 +1,5 @@
 def solve_task(pid, var):
+    print("solving task")
     if pid == 0:
         return solve_task0(var)
     elif pid == 1:
@@ -79,7 +80,9 @@ def solve_task6(number):  # easy problem
     
     for i in range(len(a)):
         for j in range(len(a[i])):
-            ans = ans + str(a[i][j]) + " "
+            ans = ans + str(a[i][j])
+            if j < len(a[i])-1:
+                ans += ' '
         ans = ans + "\n"
 
     return ans

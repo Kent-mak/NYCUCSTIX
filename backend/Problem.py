@@ -14,5 +14,5 @@ def generate_p_token():
 
 def get_random_problem(event_name: str):
     if event_name == "新手村":
-        return 6
+        return 2
     return random.randint(1, int(config["PROBLEM_COUNT"])-1)

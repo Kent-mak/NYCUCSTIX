@@ -179,8 +179,9 @@ async def verify_answer(request: Request):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="You are using an invalid token."
         )
-    if ans[-1] != '\n':
+    if ans[-1] != '\n' and answer["ans"][-1] == '\n':
         ans += '\n'
+    print(repr(ans))
     if answer["ans"] != ans:  # answer incorrect
         print("ans incorrect")
         database.get_collection("Problems").delete_one({"p_token": p_token})
@@ -192,7 +193,7 @@ async def verify_answer(request: Request):
         
     else:  # the answer is correct
         # find user with access token
-        print("access_token", access_token)
+        print("access_token:", access_token)
         user_name = await get_current_user(access_token)
         print("user_name = ", user_name)
         # user = database.get_collection("Users").find_one({"name": user_name})
