@@ -65,9 +65,8 @@ const Event: React.FC = () => {
     };
   }, [event_name]); // This ensures the fetch happens only when event_name changes
 
-  const [ticketCount, setTicketCount] = React.useState(0);
   const navigate = useNavigate();
-  const handleNextClick = () => { navigate('/problem', {state: {count: ticketCount, event: event}})};
+  const handleNextClick = () => { navigate('/problem', {state: {event: event}})};
   const { token } = useAuth();
 
   if (loading) {

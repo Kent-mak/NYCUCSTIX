@@ -22,7 +22,7 @@ const Problem: React.FC = () => {
     render: false
   });
   const [loading, setLoading] = useState(true); // Manage loading state
-  const [errorMessage, setErrorMessage] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -37,15 +37,15 @@ const Problem: React.FC = () => {
       if (response.status === 200) {
         navigate('/confirmed', { replace: true, state: {} });
       } else if (response.status === 404) {
-        const errorResult = await response.json();
-        setErrorMessage("IDIOT");
+        // const errorResult = await response.json();
+        
         navigate('/confirmed_error', { replace: true, state: {} });
       } else {
-        setErrorMessage("An unexpected error occurred. Please try again later.");
+
         navigate('/confirmed_error', { replace: true, state: {} });
       }
     } catch (error) {
-      setErrorMessage("Network error. Please check your connection.");
+
       navigate('/confirmed_error', { replace: true, state: {} });
     }
   };
