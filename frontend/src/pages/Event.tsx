@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../provider/AuthProvider"; 
 import UserNavBar from "./UserNavBar";
-import { render } from "react-dom";
 
 /*type TicketStepperProps = {
   count: number;
@@ -77,7 +76,7 @@ const Event: React.FC = () => {
     fetchEvent();
   }, [event_name]); // This ensures the fetch happens only when event_name changes
 
-  const [ticketCount, setTicketCount] = React.useState(0);
+  const [ticketCount] = React.useState(0);
   const navigate = useNavigate();
   // const handleIncrement = () => setTicketCount(prevCount => prevCount + 1);
   // const handleDecrement = () => setTicketCount(prevCount => (prevCount > 0 ? prevCount - 1 : 0));

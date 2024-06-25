@@ -89,6 +89,11 @@ if __name__ == '__main__':
         input = input.text.split(' ')
         print("輸入數字: ", input[1])
 
+        # Find problem id
+        problemIDXPATH = '//div[text()="問題 "]'
+        problemID = Wait.until(EC.presence_of_element_located((By.XPATH, problemIDXPATH)), "Error finding problem id")
+        problemID = int(problemID.text.split(' ')[1])
+
         
         # 透過 XPath 找到答案輸入框，並輸入答案
         answerBoardXPATH = '//textarea'

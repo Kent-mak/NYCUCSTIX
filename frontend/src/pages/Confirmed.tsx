@@ -2,10 +2,8 @@ import * as React from "react";
 import NavBar from "./NavBar";
 import UserNavBar from "./UserNavBar";
 import { useAuth } from "../provider/AuthProvider";
-import { useTicket } from './TicketContext';
 
 const Confirmed: React.FC = () => {
-  const { ticketCount } = useTicket();
   const { token } = useAuth();
   
   return (

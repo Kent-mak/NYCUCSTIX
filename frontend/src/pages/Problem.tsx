@@ -48,7 +48,7 @@ const Problem: React.FC = () => {
       }
     } catch (error) {
       setErrorMessage("Network error. Please check your connection.");
-      console.error('Error:', error);
+      console.error('Error:', error, errorMessage);
       navigate('/confirmed_error', { replace: true, state: {} });
     }
   };
@@ -72,7 +72,7 @@ const Problem: React.FC = () => {
         }
       } catch (error) {
         setErrorMessage("Network error. Please check your connection.");
-        console.error('Error fetching problems:', error);
+        console.error('Error fetching problems:', error, errorMessage);
         navigate('/badpage', { replace: true, state: {} });
       }
     };
@@ -86,7 +86,7 @@ const Problem: React.FC = () => {
       {token ? <UserNavBar /> : <NavBar />}
       <div className="flex-grow flex justify-center items-center px-16 py-20 text-xl leading-8 bg-white text-stone-900 max-md:px-5">
         <div className="flex flex-col justify-end py-12 pr-14 pl-12 mt-16 w-full bg-white rounded-xl shadow-md max-w-[1183px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
-          <div className="justify-center self-start text-4xl font-semibold tracking-tighter leading-9 text-black">
+          <div className="justify-center self-start text-4xl font-semibold tracking-tighter leading-9 text-black problem">
             問題 {problems.p_id}
           </div>
           <div className="self-start mt-8 leading-8 max-md:max-w-full content">
