@@ -39,6 +39,7 @@ const EventCard: React.FC<EventCardProps> = ({
         <button
           onClick={handleButtonClick}
           aria-label={buttonAriaLabel}
+          id = {title}
           className="justify-center px-4 py-1.5 mt-3 font-bold whitespace-nowrap bg-yellow-500 rounded-lg max-md:px-5"
         >
           {buttonText}

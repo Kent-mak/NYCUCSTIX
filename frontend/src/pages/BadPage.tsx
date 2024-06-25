@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 import UserNavBar from "./UserNavBar";
 import { useAuth } from "../provider/AuthProvider";
 
-const Confirmed: React.FC = () => {
+const BadPage: React.FC = () => {
   const { token } = useAuth();
   
   return (
@@ -13,7 +13,7 @@ const Confirmed: React.FC = () => {
             <div className="flex flex-col justify-end items-start py-12 pr-16 pl-12 mt-48 w-full bg-white rounded-xl shadow-md max-w-[1204px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
                 <div className="flex flex-col justify-center max-w-full text-4xl font-semibold leading-10 text-black whitespace-nowrap w-[441px]">
                     <div className="justify-center max-md:max-w-full">
-                     恭喜您，已成功訂票
+                        發生預期外的錯誤，請檢查 log
                     </div>
                 </div>
                 {/* <div className="flex flex-col justify-end mt-8 text-xl font-medium leading-8 text-zinc-500 max-md:max-w-full">
@@ -31,4 +31,4 @@ const Confirmed: React.FC = () => {
   );
 }
 
-export default Confirmed;
+export default BadPage;
