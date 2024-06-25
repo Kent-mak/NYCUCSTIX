@@ -5,22 +5,6 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../provider/AuthProvider"; 
 import UserNavBar from "./UserNavBar";
 
-/*type TicketStepperProps = {
-  count: number;
-  onIncrement: () => void;
-  onDecrement: () => void;
-};
-
-const TicketStepper: React.FC<TicketStepperProps> = ({ count, onIncrement, onDecrement }) => {
-  return (
-    <div className="flex gap-0 self-start text-white">
-      <button onClick={onDecrement} className="justify-center items-start px-3.5 py-5 bg-sky-950" type="button"> - </button>
-      <div className="justify-center items-start px-11 py-3.5 text-black bg-zinc-300 max-md:px-5">{count}</div>
-      <button onClick={onIncrement} className="justify-center items-start px-3.5 py-4 bg-sky-950" type="button"> + </button>
-    </div>
-  );
-};*/
-
 type ConcertDetailsProps = {
   time: string;
   location: string;
@@ -44,11 +28,11 @@ const Event: React.FC = () => {
     photo: '',
     description: '',
     date: '',
-    tickets_remaning: 0,
+    tickets_remaining: 0,
     price: 0,
     location: ''
   });
-
+  const [loading, setLoading] = useState(true);
   const params = useParams<{ event_name: string }>();
   const event_name = params.event_name;
   console.log("event_name", event_name);
@@ -58,28 +42,37 @@ const Event: React.FC = () => {
       console.error('Event name is not defined');
       return;
     }
-
+    let isMounted = true;
     const fetchEvent = async () => {
       try {
         console.log(`Fetching event: ${event_name}`);
         const response = await fetch(`http://127.0.0.1:8000/events/${event_name}`);
         const jsonData = await response.json();
         console.log(jsonData);
-        setEvent(jsonData);
+        if (isMounted) {
+          setEvent(jsonData);
+          setLoading(false);
+        }
       } catch (error) {
         console.error('Error fetching event:', error);
+        setLoading(false);
       }
     };
 
     fetchEvent();
+    return () => {
+      isMounted = false; // Set the flag to false when the component unmounts
+    };
   }, [event_name]); // This ensures the fetch happens only when event_name changes
 
   const [ticketCount, setTicketCount] = React.useState(0);
   const navigate = useNavigate();
-  // const handleIncrement = () => setTicketCount(prevCount => prevCount + 1);
-  // const handleDecrement = () => setTicketCount(prevCount => (prevCount > 0 ? prevCount - 1 : 0));
   const handleNextClick = () => { navigate('/problem', {state: {count: ticketCount, event: event}})};
   const { token } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col">
@@ -102,16 +95,15 @@ const Event: React.FC = () => {
                 </div>
                 <div className="flex flex-col ml-5 w-[55%] max-md:ml-0 max-md:w-full">
                   <ConcertDetails
-                    time={`時間: ${event['date'].substring(0,4)}.${event['date'].substring(5,7)}.${event['date'].substring(8,10)} ${event['date'].substring(11,13)}:${event['date'].substring(14,16)}`}
-                    location={event['location']}
-                    description={event['description']}
+                    time={`時間: ${event.date.substring(0,4)}.${event.date.substring(5,7)}.${event.date.substring(8,10)} ${event.date.substring(11,13)}:${event.date.substring(14,16)}`}
+                    location={event.location}
+                    description={event.description}
                   />
                 </div>
               </div>
             </article>
             <div className="flex gap-5 items-start mt-20 w-full text-xl font-bold leading-8 text-black whitespace-nowrap max-md:flex-wrap max-md:mt-10 max-md:max-w-full">
               <div className="flex-auto self-end mt-6">票價: {event.price}</div>
-              {/* <TicketStepper count={ticketCount} onIncrement={handleIncrement} onDecrement={handleDecrement} /> */}
               <button onClick={handleNextClick} className="justify-center px-4 py-1.5 my-auto bg-yellow-500 rounded-lg max-md:px-5" type="button">
                 下一步
               </button>
