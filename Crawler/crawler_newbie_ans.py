@@ -5,7 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 # -------------- Step 1: 前置作業 -------------- 
-url = "http://cstix.nctucsunion.me/"
+url = "http://localhost:5173/"
 
 if __name__ == '__main__':
     
