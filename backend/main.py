@@ -174,8 +174,24 @@ async def verify_answer(request: Request):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="You are using an invalid token."
         )
+        
+    ans_array = ans.split("\n")
+    print(ans_array)
+    flg = 1
+    if len(ans_array) > 1:
+        correct_ans = answer["ans"].split("\n")
+        for i, j in zip(ans_array, correct_ans):
+           if i != j:
+               flg = False
+               break
+        if flg == False:
+            database.get_collection("Problems").delete_one({"p_token": p_token})
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Your answer is wrong! You idiot."
+            )
     
-    if answer["ans"] != ans:  # answer incorrect
+    elif answer["ans"] != ans:  # answer incorrect
         print("from database: ", type(answer["ans"]))
         database.get_collection("Problems").delete_one({"p_token": p_token})
         raise HTTPException(

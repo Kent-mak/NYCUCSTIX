@@ -112,3 +112,5 @@ def task5_recur(px, py, n):
         task5_recur(px + 2**(n-1), py + 2**(n-1), n-1)
         return
 # def task4_recur(x: int):
+# x = int(input())
+print(solve_task3(99))
