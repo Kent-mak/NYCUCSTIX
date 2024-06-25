@@ -160,7 +160,10 @@ async def verify_answer(request: Request):
     p_token = body["p_token"]
     ans = body["ans"]
     print(p_token)
-    print(ans)
+    print("recieved:")
+    print(repr(ans))
+
+    
     print(type(p_token))
     p_token = uuid.UUID(p_token)
     p_token = Binary.from_uuid(p_token)
@@ -168,15 +171,20 @@ async def verify_answer(request: Request):
     answer = database.get_collection("Problems").find_one({"p_token": p_token})
     # collection = database.get_collection("Problems").find()
     # return list_serial_problems(collection)
+    print("correct:")
+    print(repr(answer["ans"]))
     if answer == None:  # if the token is not exist
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="You are using an invalid token."
         )
-    
+    if ans[-1] != '\n' and answer["ans"][-1] == '\n':
+        ans += '\n'
+    print(repr(ans))
     if answer["ans"] != ans:  # answer incorrect
-        print("from database: ", type(answer["ans"]))
+        print("ans incorrect")
         database.get_collection("Problems").delete_one({"p_token": p_token})
+        print("successfully deleted")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Your answer is wrong! You idiot."
@@ -184,7 +192,7 @@ async def verify_answer(request: Request):
         
     else:  # the answer is correct
         # find user with access token
-        print("access_token", access_token)
+        print("access_token:", access_token)
         user_name = await get_current_user(access_token)
         print("user_name = ", user_name)
         # user = database.get_collection("Users").find_one({"name": user_name})

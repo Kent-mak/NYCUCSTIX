@@ -5,6 +5,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from "../provider/AuthProvider";
 import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+// import 'katex/dist/katex.min.css';
 
 const Problem: React.FC = () => {
   const navigate = useNavigate();
@@ -32,7 +35,7 @@ const Problem: React.FC = () => {
 
   const handleNextClick = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/checkans`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/checkans`, {
         method: 'POST',
         body: JSON.stringify({
           access_token: token,
@@ -47,9 +50,9 @@ const Problem: React.FC = () => {
         setErrorMessage(""); 
         navigate('/confirmed', { replace: true, state: {} });
       } else if (response.status === 404) {
-        const errorResult = await response.json();
-        setErrorMessage("IDIOT");
-        console.error("haha", errorResult);
+        // const errorResult = await response.json();
+        const errorData = await response.json();
+        throw new Error(errorData.detail || `HTTP error! Status: ${response.status}`);
         navigate('/confirmed_error', { replace: true, state: {} });
       } else {
         setErrorMessage("An unexpected error occurred. Please try again later.");
@@ -57,8 +60,7 @@ const Problem: React.FC = () => {
         navigate('/confirmed_error', { replace: true, state: {} });
       }
     } catch (error) {
-      setErrorMessage("Network error. Please check your connection.");
-      console.error('Error:', error, errorMessage);
+      console.log(error)
       navigate('/confirmed_error', { replace: true, state: {} });
     }
   };
@@ -66,7 +68,7 @@ const Problem: React.FC = () => {
   useEffect(() => {
     const fetchProblems = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/get_problem?token=${token}&event_name=${event['name']}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/get_problem?token=${token}&event_name=${event['name']}`);
         const jsonData = await response.json();
         jsonData['render'] = true;
         setProblems(jsonData);
@@ -93,7 +95,11 @@ const Problem: React.FC = () => {
             問題 {problems.p_id} : {problems.name}
           </div>
           <div className="self-start mt-8 leading-8 max-md:max-w-full">
-            <ReactMarkdown>{problems.content}</ReactMarkdown>
+            <ReactMarkdown
+              children={problems.content}
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+            />
           </div>
           {problems.render && <div className="mt-8 max-md:max-w-full input"> <h2>輸入: </h2>{problems.var}</div>}
           <div className="mt-8 max-md:max-w-full"><h2>輸出 (請作答) :</h2></div>
