@@ -4,7 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-url = "http://localhost:4173/"
+url = "http://localhost:5173/"
 
 if __name__ == '__main__':
     

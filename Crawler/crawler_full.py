@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from SolveTask import solve_task
 import time
 
 url = "http://localhost:5173/"
@@ -64,7 +65,7 @@ if __name__ == '__main__':
         
 
         # 透過 XPath 找到購票按鈕，並點擊
-        targetXPATH = "//article[.//h2[text()='新手村']]//button"
+        targetXPATH = "//article[.//h2[text()='挑戰賽']]//button"
         targetButton = Wait.until(EC.presence_of_element_located((By.XPATH, targetXPATH)), "Error finding target ticket")
         originalURL = driver.current_url
         print("點擊購票按鈕: ", targetButton.text)
@@ -83,23 +84,30 @@ if __name__ == '__main__':
         print("點擊下一步後的網址: ", driver.current_url)
 
 
+        # 透過 XPath 找到題目 ID
+        problemTitleXPATH = "//div[contains(@class, 'problem-title')]"
+        problemTitle = Wait.until(EC.presence_of_element_located((By.XPATH, problemTitleXPATH)), "Error finding problem-title")
+        print(problemTitle.text)
+        problemID = problemTitle.text.split(' ')[1]
+        problemID = int(problemID)
+        print("問題編號: ", problemID)
+
+
         # 透過 XPath 找到輸入數字
-        inputXPATH = '//div[text()="輸入: "]'
-        input = Wait.until(EC.presence_of_element_located((By.XPATH, inputXPATH)), "Error finding input box")
-        input = input.text.split(' ')
-        print("輸入數字: ", input[1])
+        inputNumXPATH = "//div[contains(@class, 'input')]"
+        inputNum = Wait.until(EC.presence_of_element_located((By.XPATH, inputNumXPATH)), "Error finding input number")
+        inputNum = int(inputNum.text.split('\n')[1])
+        print("輸入數字: ", inputNum)
 
-        # Find problem id
-        problemIDXPATH = '//div[text()="問題 "]'
-        problemID = Wait.until(EC.presence_of_element_located((By.XPATH, problemIDXPATH)), "Error finding problem id")
-        problemID = int(problemID.text.split(' ')[1])
 
+        answer = solve_task(problemID, inputNum)
         
+
         # 透過 XPath 找到答案輸入框，並輸入答案
         answerBoardXPATH = '//textarea'
-        answerBoard=Wait.until(EC.presence_of_element_located((By.XPATH, answerBoardXPATH)), "Error finding answer board")
-        answerBoard.send_keys(input[1])
-        print("填入輸出答案: ", input[1])
+        answerBoard = Wait.until(EC.presence_of_element_located((By.XPATH, answerBoardXPATH)), "Error finding answer board")
+        answerBoard.send_keys(answer)
+        print("填入輸出答案: ", answer)
 
 
         # 透過 XPath 找到確認答案，送出按鈕，並點擊 
@@ -110,3 +118,9 @@ if __name__ == '__main__':
         submitButton.click()
         Wait.until(EC.url_changes(originalURL), "Not going to confirmation page")
         print("送出答案後的網址: ", driver.current_url) 
+
+        if(driver.current_url == url + "confirmed"):
+            print("購票成功")
+        else:
+            print("購票失敗")
+            break
