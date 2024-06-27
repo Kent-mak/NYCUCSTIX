@@ -36,9 +36,10 @@ def solve_task1(number):   # square
 def solve_task2(number):   # star
     ans = ''
     for i in range(number):
-        for j in range(i + 1):
+        for _ in range(i + 1):
             ans = ans + '*'
-        ans = ans + "\n" 
+        ans = ans + "\n"
+    ans.strip()
     return ans
 
 def solve_task3(number):   # FIB
@@ -115,3 +116,8 @@ def task5_recur(px, py, n):
         task5_recur(px + 2**(n-1), py + 2**(n-1), n-1)
         return
 # def task4_recur(x: int):
+# x = int(input())
+# print(solve_task3(99))
+
+input = int(input())
+print(solve_task2(input), end = '')

@@ -27,8 +27,7 @@ def individual_serial_user(user) -> dict:
     return {
         "id": str(user["_id"]),
         "name": user["name"],
-        "photo": user['photo'],
-        "password": user['password'],
+        # "password": user['password'],
         "events": user['events']
     }
 

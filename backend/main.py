@@ -10,7 +10,7 @@ import os
 from DB import DBClientWrapper
 from dotenv import dotenv_values
 from contextlib import asynccontextmanager
-from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user, individual_serial_problems, list_serial_problems
+from schema import list_serial_events, individual_serial_events, list_serial_user, individual_serial_user, list_serial_problems
 from authentication import create_access_token, get_current_user
 import uuid
 from bson import Binary
@@ -178,9 +178,12 @@ async def verify_answer(request: Request):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="You are using an invalid token."
         )
-
-
-    # print(repr(ans))
+    
+    ans.strip()
+    
+    # if ans[-1] != '\n' and answer["ans"][-1] == '\n':
+    #     ans += '\n'
+    print(repr(ans))
     if answer["ans"] != ans:  # answer incorrect
         print("ans incorrect")
         database.get_collection("Problems").delete_one({"p_token": p_token})
@@ -271,3 +274,8 @@ async def get_problem(token, event_name):
     }
 
     return response
+
+@app.get('/scorebaord')
+async def score_board():
+    users = database.get_collection('Users').find()
+    return list_serial_user(users)
