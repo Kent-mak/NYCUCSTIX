@@ -1,5 +1,4 @@
 def solve_task(pid, var):
-    print("solving task")
     if pid == 0:
         return solve_task0(var)
     elif pid == 1:
@@ -36,10 +35,9 @@ def solve_task1(number):   # square
 def solve_task2(number):   # star
     ans = ''
     for i in range(number):
-        for _ in range(i + 1):
+        for j in range(i + 1):
             ans = ans + '*'
-        ans = ans + "\n"
-    ans.strip()
+        ans = ans + "\n" 
     return ans
 
 def solve_task3(number):   # FIB
@@ -81,9 +79,7 @@ def solve_task6(number):  # easy problem
     
     for i in range(len(a)):
         for j in range(len(a[i])):
-            ans = ans + str(a[i][j])
-            if j < len(a[i])-1:
-                ans += ' '
+            ans = ans + str(a[i][j]) + " "
         ans = ans + "\n"
 
     return ans
@@ -116,8 +112,3 @@ def task5_recur(px, py, n):
         task5_recur(px + 2**(n-1), py + 2**(n-1), n-1)
         return
 # def task4_recur(x: int):
-# x = int(input())
-# print(solve_task3(99))
-
-input = int(input())
-print(solve_task2(input), end = '')

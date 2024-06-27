@@ -10,9 +10,6 @@ import rehypeKatex from 'rehype-katex';
 // import 'katex/dist/katex.min.css';
 
 const Problem: React.FC = () => {
-  
-
-
   const navigate = useNavigate();
   const location = useLocation();
   const { event } = location.state || {};
@@ -28,7 +25,7 @@ const Problem: React.FC = () => {
     render: false
   });
   const [loading, setLoading] = useState(true); // Manage loading state
-  // const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -48,6 +45,9 @@ const Problem: React.FC = () => {
       });
 
       if (response.status === 200) {
+        const result = await response.json();
+        console.log("Login successful:", result);
+        setErrorMessage(""); 
         navigate('/confirmed', { replace: true, state: {} });
       } else if (response.status === 404) {
         // const errorResult = await response.json();
@@ -55,7 +55,8 @@ const Problem: React.FC = () => {
         throw new Error(errorData.detail || `HTTP error! Status: ${response.status}`);
         navigate('/confirmed_error', { replace: true, state: {} });
       } else {
-
+        setErrorMessage("An unexpected error occurred. Please try again later.");
+        console.error("Unexpected response status:", response.status);
         navigate('/confirmed_error', { replace: true, state: {} });
       }
     } catch (error) {
@@ -90,8 +91,8 @@ const Problem: React.FC = () => {
       {token ? <UserNavBar /> : <NavBar />}
       <div className="flex-grow flex justify-center items-center px-16 py-20 text-xl leading-8 bg-white text-stone-900 max-md:px-5">
         <div className="flex flex-col justify-end py-12 pr-14 pl-12 mt-16 w-full bg-white rounded-xl shadow-md max-w-[1183px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
-          <div className="justify-center self-start text-4xl font-semibold tracking-tighter leading-9 text-black">
-            問題 {problems.p_id}: {problems.name}
+          <div className="justify-center self-start text-4xl font-semibold tracking-tighter leading-9 text-black problem-title">
+            問題 {problems.p_id} : {problems.name}
           </div>
           <div className="self-start mt-8 leading-8 max-md:max-w-full">
             <ReactMarkdown
@@ -100,11 +101,11 @@ const Problem: React.FC = () => {
               rehypePlugins={[rehypeKatex]}
             />
           </div>
-          {problems.render && <div className="mt-8 max-md:max-w-full"> <h2>輸入: </h2>{problems.var}</div>}
+          {problems.render && <div className="mt-8 max-md:max-w-full input"> <h2>輸入: </h2>{problems.var}</div>}
           <div className="mt-8 max-md:max-w-full"><h2>輸出 (請作答) :</h2></div>
           <div className="flex gap-5 justify-between mt-8 font-bold text-black whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
             <textarea
-              className="shrink-0 max-w-full bg-zinc-300 h-[212px] w-[463px] p-4 rounded"
+              className="shrink-0 max-w-full bg-zinc-300 h-[212px] w-[700px] p-4 rounded"
               value={inputValue}
               onChange={handleInputChange}
               placeholder="在這裡輸入答案"
@@ -117,6 +118,7 @@ const Problem: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Problem;
+

@@ -1,4 +1,3 @@
-
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from fastapi import FastAPI, Form, Request, Depends, HTTPException, status
@@ -179,8 +178,12 @@ async def verify_answer(request: Request):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="You are using an invalid token."
         )
-    if ans[-1] != '\n' and answer["ans"][-1] == '\n':
-        ans += '\n'
+    
+    while ans[-1] == '\n':
+        ans.strip()
+    
+    # if ans[-1] != '\n' and answer["ans"][-1] == '\n':
+    #     ans += '\n'
     print(repr(ans))
     if answer["ans"] != ans:  # answer incorrect
         print("ans incorrect")
@@ -234,7 +237,6 @@ async def get_problem(token, event_name):
     p_token, p_token_non_Binary = generate_p_token()
     p_id = get_random_problem(event_name)
     print(p_id)
-    print(p_token_non_Binary)
     try:
         problem = database.get_collection("ProblemContents").find_one({"id": p_id})
     except Exception as e:

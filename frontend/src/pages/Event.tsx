@@ -30,7 +30,8 @@ const Event: React.FC = () => {
     date: '',
     tickets_remaining: 0,
     price: 0,
-    location: ''
+    location: '',
+    render: false
   });
   const [loading, setLoading] = useState(true);
   const params = useParams<{ event_name: string }>();
@@ -82,9 +83,12 @@ const Event: React.FC = () => {
             <article className="max-md:max-w-full">
               <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                 <div className="flex flex-col w-[45%] max-md:ml-0 max-md:w-full">
-                  <h1 className="grow mt-10 text-3xl font-semibold tracking-tighter leading-8 text-black whitespace-nowrap max-md:mt-10">
-                    {event.name}
-                  </h1>
+                  {
+                    event.render &&
+                    <h1 className="grow mt-10 text-3xl font-semibold tracking-tighter leading-8 text-black whitespace-nowrap max-md:mt-10">
+                      {event.name}
+                    </h1>
+                  }
                   <img
                     loading="lazy"
                     src={event.photo}
