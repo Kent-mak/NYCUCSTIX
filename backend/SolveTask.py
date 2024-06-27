@@ -46,10 +46,10 @@ def solve_task3(number):   # FIB
     a[1] = 1
     a[2] = 1
 
-    for i in range(3, number):
+    for i in range(3, number + 1):
         a[i] = a[i-1] + a[i-2]
         
-    ans = str(a[i])    
+    ans = str(a[number])    
     return ans
 
 def solve_task4(number):   # identity matrix

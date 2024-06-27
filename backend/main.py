@@ -160,8 +160,8 @@ async def verify_answer(request: Request):
     p_token = body["p_token"]
     ans = body["ans"]
     print(p_token)
-    print("recieved:")
-    print(repr(ans))
+    # print("recieved:")
+    # print(repr(ans))
 
     
     print(type(p_token))
@@ -171,16 +171,16 @@ async def verify_answer(request: Request):
     answer = database.get_collection("Problems").find_one({"p_token": p_token})
     # collection = database.get_collection("Problems").find()
     # return list_serial_problems(collection)
-    print("correct:")
-    print(repr(answer["ans"]))
+    # print("correct:")
+    # print(repr(answer["ans"]))
     if answer == None:  # if the token is not exist
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="You are using an invalid token."
         )
-    if ans[-1] != '\n' and answer["ans"][-1] == '\n':
-        ans += '\n'
-    print(repr(ans))
+
+
+    # print(repr(ans))
     if answer["ans"] != ans:  # answer incorrect
         print("ans incorrect")
         database.get_collection("Problems").delete_one({"p_token": p_token})
@@ -232,7 +232,7 @@ async def get_problem(token, event_name):
 
     p_token, p_token_non_Binary = generate_p_token()
     p_id = get_random_problem(event_name)
-    print(p_id)
+    print(f'p_id: {p_id}')
     try:
         problem = database.get_collection("ProblemContents").find_one({"id": p_id})
     except Exception as e:
@@ -240,8 +240,8 @@ async def get_problem(token, event_name):
 
     var = random.randint(int(problem['var_start']), int(problem['var_end']))
     ans = solve_task(int(p_id), var)
-    print(f'var: {var}')
-    print(f'ans: {ans}')
+    # print(f'var: {var}')
+    # print(f'ans: {ans}')
     try:
         result = database.get_collection("Problems").insert_one({
             "p_token": p_token,
