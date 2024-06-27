@@ -119,5 +119,7 @@ def task5_recur(px, py, n):
 # x = int(input())
 # print(solve_task3(99))
 
-input = int(input())
-print(solve_task2(input), end = '')
+
+if __name__ == '__main__':
+    input = int(input())
+    print(solve_task2(input), end = '')
