@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from SolveTask import solve_task
 import time
 
-url = "http://localhost:5173/"
+url = "http://cstix.nctucsunion.me/"
 
 if __name__ == '__main__':
     
@@ -37,8 +37,8 @@ if __name__ == '__main__':
     loginPasswordXPath = '//input[@id="password"]'
     loginAccount = Wait.until(EC.presence_of_element_located((By.XPATH, loginAccountXPath)), "Find Account Input Error")
     loginPassword = Wait.until(EC.presence_of_element_located((By.XPATH, loginPasswordXPath)), "Find Password Input Error")
-    myAccount = "Test"
-    myPassword = "testuser"
+    myAccount = "Group5"
+    myPassword = "cscamp5"
     loginAccount.send_keys(myAccount)
     print("輸入帳號: ", myAccount)
     loginPassword.send_keys(myPassword)
@@ -123,4 +123,3 @@ if __name__ == '__main__':
             print("購票成功")
         else:
             print("購票失敗")
-            break
