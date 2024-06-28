@@ -74,14 +74,15 @@ def FIB(number):
     return ans
 
 
+# test
 if __name__ == '__main__':
     x = int(input("input something "))
-    print("echo_square:", echo_square(x))
-    print("series:", series(x))
-    print("apple:", apple(x))
-    print("star:", star(x))
-    print("star_advance:", star_advance(x))
-    print("FIB:", FIB(x))
+    print("echo_square:\n", repr(echo_square(x)))
+    print("series:\n", repr(series(x)))
+    print("apple:\n", repr(apple(x)))
+    print("star:\n", repr(star(x)))
+    print("star_advance:\n", repr(star_advance(x)))
+    print("FIB:\n", repr(FIB(x)))
     
 
 # The following are old unsed tasks
