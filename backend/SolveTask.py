@@ -24,6 +24,7 @@ def echo_square(number):
     return int(number ** 2)
 
 def series(number):
+    print(int((number * (number + 1)) / 2))
     return int((number * (number + 1)) / 2)
 
 def apple(number):
@@ -38,7 +39,7 @@ def apple(number):
             money = money + apple_num * 30 * discount
             apple_num = 10
         discount -= 0.05
-        
+    print(int(money))
     return int(money)
 
 def star(number):
@@ -48,7 +49,7 @@ def star(number):
             ans = ans + '*'
         if i < number-1:
             ans = ans + "\n"
-
+    print(ans)
     return ans
 
 def star_advance(number):
@@ -60,6 +61,7 @@ def star_advance(number):
             ans += '*'
         if i < number - 1:
             ans += "\n"
+    print(ans)
     return ans
 
 def FIB(number):
@@ -70,7 +72,8 @@ def FIB(number):
     for i in range(3, number + 1):
         a[i] = a[i-1] + a[i-2]
         
-    ans = int(a[number])    
+    ans = int(a[number])  
+    print(ans)  
     return ans
 
 

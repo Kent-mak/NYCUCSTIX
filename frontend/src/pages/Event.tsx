@@ -6,18 +6,23 @@ import { useAuth } from "../provider/AuthProvider";
 import UserNavBar from "./UserNavBar";
 
 type ConcertDetailsProps = {
-  time: string;
-  location: string;
+  // time: string;
+  // location: string;
   description: string;
+  name: string;
 };
-
-const ConcertDetails: React.FC<ConcertDetailsProps> = ({ time, location, description }) => {
+// time, location,
+const ConcertDetails: React.FC<ConcertDetailsProps> = ({  name, description }) => {
   return (
-    <div className="mt-24 text-xl leading-8 text-zinc-500 max-md:mt-10">
-      <span className="text-stone-900">{time}</span> <br />
-      <span className="text-stone-900">{location}</span> <br /><br />
-      {description}
-    </div> 
+    <>
+      <h2>{name}</h2>
+      <div className="mt-24 text-xl leading-8 text-zinc-500 max-md:mt-10">
+        {/* <span className="text-stone-900">{time}</span> <br />
+        <span className="text-stone-900">{location}</span> <br /><br /> */}
+        {description}
+      </div> 
+    </>
+    
   );
 };
 
@@ -97,10 +102,12 @@ const Event: React.FC = () => {
                   />
                 </div>
                 <div className="flex flex-col ml-5 w-[55%] max-md:ml-0 max-md:w-full">
+                  
                   <ConcertDetails
-                    time={`時間: ${event.date.substring(0,4)}.${event.date.substring(5,7)}.${event.date.substring(8,10)} ${event.date.substring(11,13)}:${event.date.substring(14,16)}`}
-                    location={event.location}
+                    // time={`時間: ${event.date.substring(0,4)}.${event.date.substring(5,7)}.${event.date.substring(8,10)} ${event.date.substring(11,13)}:${event.date.substring(14,16)}`}
+                    // location={event.location}
                     description={event.description}
+                    name={event.name}
                   />
                 </div>
               </div>

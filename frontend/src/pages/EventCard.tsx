@@ -6,7 +6,7 @@ type EventCardProps = {
   imageAlt: string;
   title: string;
   subtitle: string;
-  date: string;
+  // date: string;
   buttonText: string;
   buttonAriaLabel: string;
 };
@@ -16,7 +16,7 @@ const EventCard: React.FC<EventCardProps> = ({
   imageAlt,
   title,
   subtitle,
-  date,
+  // date,
   buttonText,
   buttonAriaLabel
 }) => {
@@ -35,7 +35,7 @@ const EventCard: React.FC<EventCardProps> = ({
           <figcaption>{title}</figcaption>
         </figure>
         <h2 className="mt-3 font-medium text-ellipsis">{subtitle}</h2>
-        <time className="text-base text-ellipsis text-zinc-700">{date}</time>
+        {/* <time className="text-base text-ellipsis text-zinc-700">{date}</time> */}
         <button
           onClick={handleButtonClick}
           aria-label={buttonAriaLabel}

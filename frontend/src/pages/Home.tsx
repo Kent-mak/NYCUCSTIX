@@ -54,9 +54,9 @@ const Home: React.FC = () => {
                 title={event['name']}
                 subtitle={event['name']}
                 // date={event['date']}
-                date = {`${event['date'].substring(0,4)}.${event['date'].substring(5,7)}.${event['date'].substring(8,10)} ${event['date'].substring(11,13)}:${event['date'].substring(14,16)}`}
+                // date = {`${event['date'].substring(0,4)}.${event['date'].substring(5,7)}.${event['date'].substring(8,10)} ${event['date'].substring(11,13)}:${event['date'].substring(14,16)}`}
                 buttonText={"我要買"}
-                buttonAriaLabel={`buy ticket for ${event['name']}`}
+                buttonAriaLabel={`vote for ${event['name']}`}
               />
             ))}
           </section>

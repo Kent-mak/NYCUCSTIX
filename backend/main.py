@@ -277,5 +277,5 @@ async def get_problem(token, event_name):
 
 @app.get('/scoreboard')
 async def score_board():
-    users = database.get_collection('Users').find()
-    return list_serial_user(users)
+    idols = database.get_collection('Events').find()
+    return list_serial_events(idols)
