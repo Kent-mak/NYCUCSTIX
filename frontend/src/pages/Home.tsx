@@ -13,7 +13,7 @@ const Home: React.FC = () => {
     let isMounted = true; // Add this flag to track if the component is mounted
   
     const fetchEvents = async () => {
-      const response = await fetch('http://localhost:8000');
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}`);
       const jsonData = await response.json();
       console.log(jsonData);
       setLoading(false);

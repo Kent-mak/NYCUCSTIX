@@ -11,7 +11,7 @@ const MyTicket: React.FC = () => {
   useEffect(() => {
     
     const fetchTickets = async () => {
-      const response = await fetch(`http://127.0.0.1:8000/user_data?token=${token}`);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user_data?token=${token}`);
       const jsonData = await response.json();
       console.log(jsonData)
       setTickets(jsonData['events']);

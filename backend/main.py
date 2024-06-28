@@ -1,4 +1,3 @@
-
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from fastapi import FastAPI, Form, Request, Depends, HTTPException, status
@@ -161,7 +160,10 @@ async def verify_answer(request: Request):
     p_token = body["p_token"]
     ans = body["ans"]
     print(p_token)
-    print(ans)
+    # print("recieved:")
+    # print(repr(ans))
+
+    
     print(type(p_token))
     p_token = uuid.UUID(p_token)
     p_token = Binary.from_uuid(p_token)
@@ -169,31 +171,23 @@ async def verify_answer(request: Request):
     answer = database.get_collection("Problems").find_one({"p_token": p_token})
     # collection = database.get_collection("Problems").find()
     # return list_serial_problems(collection)
+    # print("correct:")
+    # print(repr(answer["ans"]))
     if answer == None:  # if the token is not exist
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="You are using an invalid token."
         )
-        
-    ans_array = ans.split("\n")
-    print(ans_array)
-    flg = 1
-    if len(ans_array) > 1:
-        correct_ans = answer["ans"].split("\n")
-        for i, j in zip(ans_array, correct_ans):
-           if i != j:
-               flg = False
-               break
-        if flg == False:
-            database.get_collection("Problems").delete_one({"p_token": p_token})
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Your answer is wrong! You idiot."
-            )
     
-    elif answer["ans"] != ans:  # answer incorrect
-        print("from database: ", type(answer["ans"]))
+    ans.strip()
+    
+    # if ans[-1] != '\n' and answer["ans"][-1] == '\n':
+    #     ans += '\n'
+    print(repr(ans))
+    if answer["ans"] != ans:  # answer incorrect
+        print("ans incorrect")
         database.get_collection("Problems").delete_one({"p_token": p_token})
+        print("successfully deleted")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Your answer is wrong! You idiot."
@@ -201,7 +195,7 @@ async def verify_answer(request: Request):
         
     else:  # the answer is correct
         # find user with access token
-        print("access_token", access_token)
+        print("access_token:", access_token)
         user_name = await get_current_user(access_token)
         print("user_name = ", user_name)
         # user = database.get_collection("Users").find_one({"name": user_name})
@@ -241,8 +235,7 @@ async def get_problem(token, event_name):
 
     p_token, p_token_non_Binary = generate_p_token()
     p_id = get_random_problem(event_name)
-    print(p_id)
-    print(p_token_non_Binary)
+    print(f'p_id: {p_id}')
     try:
         problem = database.get_collection("ProblemContents").find_one({"id": p_id})
     except Exception as e:
@@ -250,8 +243,8 @@ async def get_problem(token, event_name):
 
     var = random.randint(int(problem['var_start']), int(problem['var_end']))
     ans = solve_task(int(p_id), var)
-    print(f'var: {var}')
-    print(f'ans: {ans}')
+    # print(f'var: {var}')
+    # print(f'ans: {ans}')
     try:
         result = database.get_collection("Problems").insert_one({
             "p_token": p_token,
@@ -282,7 +275,7 @@ async def get_problem(token, event_name):
 
     return response
 
-@app.get('/scorebaord')
+@app.get('/scoreboard')
 async def score_board():
     users = database.get_collection('Users').find()
     return list_serial_user(users)
