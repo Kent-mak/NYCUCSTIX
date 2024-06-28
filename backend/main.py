@@ -175,7 +175,7 @@ async def verify_answer(request: Request):
     # if ans[-1] != '\n' and answer["ans"][-1] == '\n':
     #     ans += '\n'
     while ans[-1] == "\n":
-        ans.strip()
+        ans = ans.strip()
         
     if answer["ans"] != ans:  # answer incorrect
         print("ans incorrect")
