@@ -49,7 +49,7 @@ const Scoreboard: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-gray-100">
       {token ? <UserNavBar /> : <NavBar />}
       <div style={{ width: '100%', height: '105vh', padding: '20px' }}>
-        <h1 style={{ color: 'black', fontSize: '24px', fontWeight: 'bold', textAlign: 'center', marginTop: '40px', marginBottom: '40px' }}>
+        <h1 style={{ color: 'black', fontSize: '30px', fontWeight: 'bold', textAlign: 'center', marginTop: '40px', marginBottom: '40px' }}>
           人氣排行榜🔥
         </h1>
         <ResponsiveContainer width="100%" height="80%">
@@ -60,8 +60,8 @@ const Scoreboard: React.FC = () => {
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" />
-            <YAxis dataKey="name" type="category" width={100} />
+            <XAxis type="number" allowDecimals={false} />
+            <YAxis dataKey="name" type="category" width={100}  />
             <Tooltip />
             {/* <Legend /> */}
             <Bar dataKey="vote_count" fill="#8884d8" />
