@@ -3,14 +3,15 @@ from bson import Binary
 
 def individual_serial_events(event) -> dict:
     return{
-        "id": str(event["_id"]),
+        # "id": str(event["_id"]),
         "name": event["name"],
         "photo": event['photo'],
         "description": event["description"],
-        "date": event["date"],
-        "tickets_remaning": event["tickets_remaining"],
-        "price": event['price'],
-        "location": event['location']
+        # "date": event["date"],
+        # "tickets_remaning": event["tickets_remaining"],
+        # "price": event['price'],
+        # "location": event['location']
+        "vote_count": event["vote_count"]
     }
     
     
@@ -27,8 +28,7 @@ def individual_serial_user(user) -> dict:
     return {
         "id": str(user["_id"]),
         "name": user["name"],
-        "photo": user['photo'],
-        "password": user['password'],
+        # "password": user['password'],
         "events": user['events']
     }
 

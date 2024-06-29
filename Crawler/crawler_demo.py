@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
 # -------------- Step 1: 前置作業 -------------- 
 url = "http://localhost:5173/"

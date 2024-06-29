@@ -37,8 +37,8 @@ if __name__ == '__main__':
     loginPasswordXPath = '//input[@id="password"]'
     loginAccount = Wait.until(EC.presence_of_element_located((By.XPATH, loginAccountXPath)), "Find Account Input Error")
     loginPassword = Wait.until(EC.presence_of_element_located((By.XPATH, loginPasswordXPath)), "Find Password Input Error")
-    myAccount = "Test"
-    myPassword = "testuser"
+    myAccount = "Group5"
+    myPassword = "cscamp5"
     loginAccount.send_keys(myAccount)
     print("輸入帳號: ", myAccount)
     loginPassword.send_keys(myPassword)
@@ -123,4 +123,3 @@ if __name__ == '__main__':
             print("購票成功")
         else:
             print("購票失敗")
-            break
