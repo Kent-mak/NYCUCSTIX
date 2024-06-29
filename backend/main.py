@@ -172,12 +172,16 @@ async def verify_answer(request: Request):
             detail="You are using an invalid token."
         )
     
-    ans = ans.strip()
+    # ans = ans.strip()
     
     # if ans[-1] != '\n' and answer["ans"][-1] == '\n':
     #     ans += '\n'
-    while ans[-1] == "\n":
-        ans = ans.strip()
+
+    while ans[-1] == '\n':
+        ans = ans[:-1]
+
+    # print("recv:")
+    # print(ans)
         
     if answer["ans"] != ans:  # answer incorrect
         print("ans incorrect")

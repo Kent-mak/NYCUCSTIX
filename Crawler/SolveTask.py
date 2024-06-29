@@ -77,3 +77,4 @@ def solve_task6(number):
         a[i] = a[i-1] + a[i-2]
     
     return a[number]
+

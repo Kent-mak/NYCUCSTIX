@@ -1,3 +1,6 @@
+from StoreTasks import store
+
+
 def solve_task(pid, var):
     print("solving task")
     if pid == 0:
@@ -16,69 +19,70 @@ def solve_task(pid, var):
         return FIB(var)
 
 
-
 def echo(number):
-    return number 
+        return number 
 
 def echo_square(number):
     return int(number ** 2)
 
 def series(number):
-    print(int((number * (number + 1)) / 2))
     return int((number * (number + 1)) / 2)
 
 def apple(number):
-    apple_num = 500 % number   # these apple to sell
-    money = 0
-    discount = 1
-    while(apple_num > 0):
-        if apple_num >= 10:
-            money = money + 10 * 30 * discount
-            apple_num -= 10
-        else:
-            money = money + apple_num * 30 * discount
-            apple_num = 0
-        discount -= 0.05
-    print(int(money))
-    return int(money)
+    # apple_num = 500 % number   # these apple to sell
+    # money = 0
+    # discount = 1
+    # while(apple_num > 0):
+    #     if apple_num >= 10:
+    #         money = money + 10 * 30 * discount
+    #         apple_num -= 10
+    #     else:
+    #         money = money + apple_num * 30 * discount
+    #         apple_num = 10
+    #     discount -= 0.05
+        
+    # return int(money)
+    return store.get_apple(number)
 
 def star(number):
-    ans = ''
-    for i in range(number):
-        for _ in range(i + 1):
-            ans = ans + '*'
-        if i < number-1:
-            ans = ans + "\n"
-    print(ans)
-    return ans
+    # ans = ''
+    # for i in range(number):
+    #     for _ in range(i + 1):
+    #         ans = ans + '*'
+    #     if i < number-1:
+    #         ans = ans + "\n"
+
+    # return ans
+    return store.get_star(number)
 
 def star_advance(number):
-    ans = ''
-    for i in range(number):
-        for _ in range(number - i - 1):
-            ans += ' '
-        for _ in range((i + 1)*2 - 1):
-            ans += '*'
-        if i < number - 1:
-            ans += "\n"
-    print(ans)
-    return ans
+    # ans = ''
+    # for i in range(number):
+    #     for _ in range(number - i - 1):
+    #         ans += ' '
+    #     for _ in range((i + 1)*2 - 1):
+    #         ans += '*'
+    #     if i < number - 1:
+    #         ans += "\n"
+    # return ans
+    return store.get_advance_star(number)
 
 def FIB(number):
-    a = [0 for i in range(200)]
-    a[1] = 1
-    a[2] = 1
+    # a = [0 for i in range(200)]
+    # a[1] = 1
+    # a[2] = 1
 
-    for i in range(3, number + 1):
-        a[i] = a[i-1] + a[i-2]
+    # for i in range(3, number + 1):
+    #     a[i] = a[i-1] + a[i-2]
         
-    ans = int(a[number])  
-    print(ans)  
-    return ans
+    # ans = int(a[number])    
+    # return ans
+    return store.get_FIB(number)
 
 
 # test
 if __name__ == '__main__':
+    
     x = int(input("input something "))
     print("echo_square:\n", repr(echo_square(x)))
     print("series:\n", repr(series(x)))

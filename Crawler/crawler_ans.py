@@ -7,7 +7,7 @@ import time
 from SolveTask import solve_task
  
  
-url = "http://cstix.nctucsunion.me/"
+url = "http://127.0.0.1:3000/"
  
 # -------------- Step 1: 前置 --------------
 def init_driver():

@@ -86,14 +86,14 @@ def go_to_home_page():
     time.sleep(1.5)
 
 
-def click_buy_button():
+def click_vote_button():
     '''
     TODO: 透過 XPath 找到"我要買"按鈕
     '''
-    raise NotImplementedError("還沒點擊我要買按鈕位置")
+    raise NotImplementedError("還沒點擊投票按鈕位置")
     targetXPATH = '//article[.//h2[text()="___(?)___"]]//button'
     targetButton = Wait.until(EC.presence_of_element_located((By.XPATH, targetXPATH)), "Error finding target ticket")
-    '_________(?)_________' # 點擊"我要買"按鈕
+    '_________(?)_________' # 點擊"投票"按鈕
     originalURL = driver.current_url
     Wait.until(EC.url_changes(originalURL), "Not going to ticket page")
     time.sleep(1.5)
@@ -191,7 +191,7 @@ if __name__ == '__main__':
 
     # -------------- Step 3: 購票 --------------
     go_to_home_page()
-    click_buy_button()
+    click_vote_button()
     click_next_step_button()
 
     # -------------- Step 4: 解題 --------------
