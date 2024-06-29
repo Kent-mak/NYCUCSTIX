@@ -24,6 +24,7 @@ def echo_square(number):
     return int(number ** 2)
 
 def series(number):
+    print(int((number * (number + 1)) / 2))
     return int((number * (number + 1)) / 2)
 
 def apple(number):
@@ -36,9 +37,9 @@ def apple(number):
             apple_num -= 10
         else:
             money = money + apple_num * 30 * discount
-            apple_num = 10
+            apple_num = 0
         discount -= 0.05
-        
+    print(int(money))
     return int(money)
 
 def star(number):
@@ -48,7 +49,7 @@ def star(number):
             ans = ans + '*'
         if i < number-1:
             ans = ans + "\n"
-
+    print(ans)
     return ans
 
 def star_advance(number):
@@ -60,6 +61,7 @@ def star_advance(number):
             ans += '*'
         if i < number - 1:
             ans += "\n"
+    print(ans)
     return ans
 
 def FIB(number):
@@ -70,18 +72,20 @@ def FIB(number):
     for i in range(3, number + 1):
         a[i] = a[i-1] + a[i-2]
         
-    ans = int(a[number])    
+    ans = int(a[number])  
+    print(ans)  
     return ans
 
 
+# test
 if __name__ == '__main__':
     x = int(input("input something "))
-    print("echo_square:", echo_square(x))
-    print("series:", series(x))
-    print("apple:", apple(x))
-    print("star:", star(x))
-    print("star_advance:", star_advance(x))
-    print("FIB:", FIB(x))
+    print("echo_square:\n", repr(echo_square(x)))
+    print("series:\n", repr(series(x)))
+    print("apple:\n", repr(apple(x)))
+    print("star:\n", repr(star(x)))
+    print("star_advance:\n", repr(star_advance(x)))
+    print("FIB:\n", repr(FIB(x)))
     
 
 # The following are old unsed tasks

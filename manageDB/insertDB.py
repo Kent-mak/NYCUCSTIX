@@ -36,25 +36,25 @@ def insertEvents():
             continue
         photo = input("photo url: ")
         description = input("description: ")
-        tickets_remaining = int(input("tickets remaining: "))
-        year = int(input("year: "))
-        month = int(input("month: "))
-        day = int(input("day: "))
-        hour = int(input("hour: "))
-        minute = int(input('minute: '))
-        price =int(input("price: "))
-        location = input("location: ")
+        # tickets_remaining = int(input("tickets remaining: "))
+        # year = int(input("year: "))
+        # month = int(input("month: "))
+        # day = int(input("day: "))
+        # hour = int(input("hour: "))
+        # minute = int(input('minute: '))
+        # price =int(input("price: "))
+        # location = input("location: ")
 
         entry = {
             "name": name,
-            "photo": photo,
             "description": description,
-            "tickets_remaining": tickets_remaining,
-            "date": datetime(year, month, day, hour, minute),
-            "price": price,
-            "location": location
+            "photo": photo,
+            # "date": datetime(2024, 7, 4, 12, 0),
+            # "price": price,
+            # "location": "陽明交通大學工程三館資訊中心",
+            "vote_count":0
         }
-        if input("add to list?: "):
+        if int(input("add to list?: ")):
             data.append(entry)
 
         if(int(input("insert more?: ")) != 1):

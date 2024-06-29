@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
+from SolveTask import solve_task
 
 # -------------- Step 1: 前置作業 -------------- 
 url = "http://cstix.nctucsunion.me/"
@@ -96,6 +96,15 @@ if __name__ == '__main__':
     print("點擊下一步後的網址: ", driver.current_url)
 
     # -------------- Step 4: 驗證 --------------
+    # # TODO: 透過 XPath 找到題目 ID
+    # problemTitleXPATH = '___(?)___'
+    # problemTitle = Wait.until(EC.presence_of_element_located\
+    #                         ((By.XPATH, problemTitleXPATH)), "Error finding problem-title")
+    
+    # # TODO: (Hint 字串處理 split)
+    # problemID = problemTitle.text.'___(?)___'
+    # problemID = int(problemID)
+    
     # TODO: 透過 XPath 找到輸入值數字
     inputXPATH = "___(?)___"
     input = Wait.until(EC.presence_of_element_located((By.XPATH, inputXPATH)), "Error finding input box")
@@ -103,6 +112,9 @@ if __name__ == '__main__':
     inputNum = int("___(?)___")
     print("輸入數字: ", inputNum)
     
+
+    # answer = solve_task("___(?)___", inputNum)
+
 
     # TODO: 透過 XPath 找到答案輸入框
     answerBoardXPATH = "___(?)___"

@@ -3,9 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from SolveTask import solve_task
 
 # -------------- Step 1: 前置作業 -------------- 
-url = "http://localhost:5173/"
+url = "http://cstix.nctucsunion.me/"
 
 if __name__ == '__main__':
     
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     print("點擊登入按鈕")
     loginButton.click()
     Wait.until(EC.url_changes(originalURL), "Not going to login page")
-
+    
 
     # TODO: 透過 XPath 找到帳號、密碼輸入框
     print("現在所在網址: ", driver.current_url)
@@ -94,11 +95,12 @@ if __name__ == '__main__':
     # -------------- Step 4: 驗證 --------------
     # TODO: 透過 XPath 找到輸入值數字
     inputNumXPATH = "//div[contains(@class, 'input')]"
-    input = Wait.until(EC.presence_of_element_located((By.XPATH, inputNumXPATH)), "Error finding input number")
+    inputBox = Wait.until(EC.presence_of_element_located((By.XPATH, inputNumXPATH)), "Error finding input number")
     # TODO: 找到輸入數字 (Hint: 字串處理split)
-    inputNum = int(input.text.split('\n')[1])
+    inputNum = int(inputBox.text.split('\n')[1])
     print("輸入數字: ", inputNum)
 
+    # answer = solve_task(problemID, inputNum)
     
     # TODO: 透過 XPath 找到答案輸入框
     answerBoardXPATH = '//textarea'

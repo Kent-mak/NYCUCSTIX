@@ -11,6 +11,7 @@ import Problem from "../pages/Problem";
 import Confirmed from "../pages/Confirmed";
 import Confirmed_error from "../pages/Confirmed_error";
 import BadPage from "../pages/BadPage";
+import Scoreboard from "../pages/ScoreBoard";
 
 // import Login from "../pages/Login";
 // import Logout from "../pages/Logout";
@@ -77,6 +78,10 @@ const Routes: React.FC = () => {
         {
           path: "badpage",
           element: <BadPage />,
+        },
+        {
+          path: "scoreboard",
+          element: <Scoreboard />,
         }
       ],
     },
