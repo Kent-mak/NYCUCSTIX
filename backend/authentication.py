@@ -36,6 +36,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         if username is None:
             raise credential_exception
     except JWTError:
+        print("user not exist")
         raise credential_exception
     
     return username

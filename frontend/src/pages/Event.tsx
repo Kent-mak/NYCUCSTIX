@@ -103,7 +103,8 @@ const Event: React.FC = () => {
                 </div>
                 <div className="flex flex-col ml-5 w-[55%] max-md:ml-0 max-md:w-full">
                   <div className="mt-40 text-xl leading-8 text-zinc-500 max-md:mt-10">
-                    {event.description}
+                    {/* {event.description} */}
+                    {"IVE是韓國STARSHIP娛樂於2021年推出的六人女子音樂團體。成員包括Gaeul、Yujin、Rei、Wonyoung、Liz和Leeseo，並由Yujin擔任隊長，於2021年12月1日以單曲專輯《ELEVEN》出道"}
                   </div>
                   {/* <ConcertDetails
                     // time={`時間: ${event.date.substring(0,4)}.${event.date.substring(5,7)}.${event.date.substring(8,10)} ${event.date.substring(11,13)}:${event.date.substring(14,16)}`}
