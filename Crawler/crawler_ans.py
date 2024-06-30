@@ -1,13 +1,13 @@
 # -------------- Step 0: import 套件 -------------- 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import time
-from SolveTask import solve_task
+from selenium import webdriver  # 引入 Selenium 的 webdriver 模組
+from selenium.webdriver.common.by import By  # 引入 Selenium 的定位方式 By
+from selenium.webdriver.support.wait import WebDriverWait  # 引入 Selenium 的等待模組 WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC  # 引入 Selenium 的預期條件模組 as EC
+import time  # 引入 time 模組
+from SolveTask import solve_task  # 從 SolveTask 引入 solve_task 函數
  
  
-url = "http://127.0.0.1:3000/"
+url = "http://cstix.nctucsunion.me/"
  
 # -------------- Step 1: 前置 --------------
 def init_driver():
@@ -30,13 +30,23 @@ def click_login_button():
     ''' 
     TODO: 透過 XPath 找到登入按鈕，並點擊
     '''
- 
+    
     loginButtonXPATH = '//button[text()="登入"]'
-    loginButton = Wait.until(EC.presence_of_element_located((By.XPATH, loginButtonXPATH)), "Find Login Button Error")
+
+    # 等待並確認登入按鈕出現在頁面上，若超時則拋出錯誤訊息
+    loginButton = Wait.until(EC.presence_of_element_located((By.XPATH, loginButtonXPATH)), "Find Login Button Error") 
+    
+    # 保存當前頁面的 URL
     originalURL = driver.current_url
-    loginButton.click() # 點擊登入按鈕
-    Wait.until(EC.url_changes(originalURL), "Not going to login page")
-    time.sleep(1.5)
+
+    # 點擊登入按鈕
+    loginButton.click() 
+
+     # 等待 URL 變化，確認頁面已跳轉到登入頁面，若無變化則拋出錯誤訊息
+    Wait.until(EC.url_changes(originalURL), "Not going to login page") 
+    
+    # 暫停1.5秒，讓頁面有充足時間載入
+    time.sleep(1.5) 
  
  
 def fill_in_info():
@@ -111,7 +121,7 @@ def click_next_step_button():
     time.sleep(1.5)
  
  
- 
+# -------------- Step 4: 驗證 -------------- 
 def fill_in_answer():
     '''
     TODO: 透過 XPath 找到輸入值數字，並填入答案
@@ -128,6 +138,7 @@ def fill_in_answer():
     # HINT: send_keys()
     answerBoard.send_keys(inputNum)
     time.sleep(1.5)
+    
  
 def click_submit_button():
     '''
@@ -158,7 +169,7 @@ def solve_problem():
     problemID = problemTitle.text.split(' ')[1]
     problemID = int(problemID)
     
- 
+    
     inputNumXPATH = "//div[contains(@class, 'input')]"
     inputBox = Wait.until(EC.presence_of_element_located((By.XPATH, inputNumXPATH)), "Error finding input box")
     # Hint: 字串處理 split
@@ -194,7 +205,7 @@ if __name__ == '__main__':
         click_vote_button()
         click_next_step_button()
  
-        # -------------- Step 4: 解題 --------------
+        # -------------- Step 4: 驗證 --------------
         # fill_in_answer()    # 在新手村時使用 
         solve_problem()   # 在挑戰賽時使用
         click_submit_button()
