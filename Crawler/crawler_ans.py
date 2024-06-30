@@ -185,6 +185,7 @@ def solve_problem():
     time.sleep(1.5)
  
 
+ 
 if __name__ == '__main__':
  
     # -------------- Step 1: 前置 --------------
@@ -202,6 +203,6 @@ if __name__ == '__main__':
         click_next_step_button()
  
         # -------------- Step 4: 驗證 --------------
-        # fill_in_answer()    # 在新手村時使用 
+        # fill_in_answer()  # 在新手村時使用 
         solve_problem()   # 在挑戰賽時使用
         click_submit_button()
