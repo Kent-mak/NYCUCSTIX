@@ -86,23 +86,32 @@ const Event: React.FC = () => {
         <main className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
           <section className="flex flex-col mt-40 max-w-full w-[732px] max-md:mt-10">
             <article className="max-md:max-w-full">
-              <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+              <div className="flex gap-10 max-md:flex-col max-md:gap-0">
                 <div className="flex flex-col w-[45%] max-md:ml-0 max-md:w-full">
-                  {
+                  {/* {
                     // event.render &&
-                    <h1 className="grow mt-10 text-3xl font-semibold tracking-tighter leading-8 text-black whitespace-nowrap max-md:mt-10">
+                    <h1 className="grow mt-10 text-4xl font-semibold tracking-tighter leading-8 text-black whitespace-nowrap max-md:mt-10">
                       {event.name}
                     </h1>
-                  }
-                  <img
+                  } */}
+                  <div className="relative mt-10 w-full" style={{ paddingBottom: '100%' }}>
+                    <img
+                      loading="lazy"
+                      src={event.photo}
+                      alt="Concert poster"
+                      className="absolute top-0 left-0 w-full h-full object-cover"
+                    />
+                  </div>
+                  {/* <img
                     loading="lazy"
                     src={event.photo}
                     alt="Concert poster"
-                    className="mt-10 w-full aspect-square"
-                  />
+                    className="mt-10 w-full object-cover "
+                  /> */}
                 </div>
                 <div className="flex flex-col ml-5 w-[55%] max-md:ml-0 max-md:w-full">
-                  <div className="mt-40 text-xl leading-8 text-zinc-500 max-md:mt-10">
+                  <h2 className="mt-10 text-2xl leading-8 text-black max-md:mt-10"> {event_name}</h2>
+                  <div className=" text-xl leading-8 text-zinc-500 max-md:mt-10">
                     {event.description}
                   </div>
                   {/* <ConcertDetails

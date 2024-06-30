@@ -92,7 +92,7 @@ const Problem: React.FC = () => {
       <div className="flex-grow flex justify-center items-center px-16 py-20 text-xl leading-8 bg-white text-stone-900 max-md:px-5">
         <div className="flex flex-col justify-end py-12 pr-14 pl-12 mt-16 w-full bg-white rounded-xl shadow-md max-w-[1183px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
           <div className="justify-center self-start text-4xl font-semibold tracking-tighter leading-9 text-black problem-title">
-            問題 {problems.p_id} : {problems.name}
+            粉絲驗證問題 {problems.p_id} : {problems.name}
           </div>
           <div className="self-start mt-8 leading-8 max-md:max-w-full">
             <ReactMarkdown
