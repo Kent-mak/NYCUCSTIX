@@ -80,7 +80,7 @@ const Event: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
       {token ? <UserNavBar /> : <NavBar />}
       <div className="flex-grow flex justify-center items-center px-16 py-20 bg-white">
         <main className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">

@@ -17,99 +17,64 @@ def solve_task(pid, var):
 def solve_task0(number):
     return number 
 
-def solve_task1(number):   # square
-    ans: str
-    flag = False
-    for i in range(16):
-        y = (i+1)**2 + (i+2)**2 + (i+3)**2
-        if y == number:
-            ans = "yes"
-            flag = True
-            break
-
-    if flag == False:
-        ans = "no"
-    return ans
+def solve_task1(number):  # square
+    return number**2
 
 
-def solve_task2(number):   # star
-    ans = ''
+def solve_task2(number):   # series
+    return int((number)*(number+1)/2)
+
+def solve_task3(number):   # apple
+    left_apple = 500 % number
+    price = 30
+    money = 0
+    rate = 1
+    while left_apple > 0:
+        current_apple = 0
+        if left_apple >= 10:
+            current_apple = 10
+        else:
+            current_apple = left_apple
+
+        money += current_apple * price * rate
+        
+        rate -= 0.05
+        left_apple -= current_apple
+    return (int(money))
+
+def solve_task4(number):
+    result = ""
     for i in range(number):
         for j in range(i + 1):
-            ans = ans + '*'
-        ans = ans + "\n" 
-    return ans
+            result += "*"
+        result += "\n"
+    return result
 
-def solve_task3(number):   # FIB
-    a = [0 for i in range(200)]
+
+def solve_task5(number):   # star-advanced
+    a = ""
+    for i in range(number):
+        for j in range(number-i-1):
+            a += " "
+        for j in range((i+1)*2 - 1):
+            a += "*"
+        a += '\n'
+    a = a[:-1] # 把最後一個"\n"刪掉
+    return a
+
+
+def solve_task6(number):
+    if number <= 0:
+        return 0
+    if number == 1 or number == 2:
+        return 1
+    
+    a = [0] * (number + 1)  # 使用 number+1 大小的列表，索引從0到number
     a[1] = 1
     a[2] = 1
-
-    for i in range(3, number+1):
+    
+    for i in range(3, number + 1):
         a[i] = a[i-1] + a[i-2]
-        
-    ans = str(a[number])
-    return ans
-
-def solve_task4(number):   # identity matrix
-    ans = ''
-    for i in range(number):
-        for j in range(number):
-            if i == j:
-                ans = ans + '1'
-            else:
-                ans = ans + '0'
-        ans = ans + "\n"
-    return ans
-
-def solve_task5(number):   # recursive
-    ans = task4_recur(number)
-    ans = str(ans)
-    return ans
-
-
-
-def solve_task6(number):  # easy problem
-    return 1
-    global a
-    ans = ''
-    n = number
-    size = 2**n
-    a = [[0] * size for _ in range(size)]
-    task5_recur(0, 0, n)
     
-    for i in range(len(a)):
-        for j in range(len(a[i])):
-            ans = ans + str(a[i][j]) + " "
-        ans = ans + "\n"
+    return a[number]
 
-    return ans
-
-
-
-# def solve_task6(number):
-#     ans = ''
-    
-
-def task4_recur(x: int):
-    if x % 2 == 0:
-        return task4_recur(x / 2)
-    elif x != 1:
-        return task4_recur(x - 1) + task4_recur(x + 1)
-    return 1
-
-
-a = []
-c = 1
-def task5_recur(px, py, n):
-        global c
-        if n == 0:
-            a[px][py] = c
-            c += 1
-            return
-        task5_recur(px, py, n-1)
-        task5_recur(px, py + 2**(n-1), n-1)
-        task5_recur(px + 2**(n-1), py, n-1)
-        task5_recur(px + 2**(n-1), py + 2**(n-1), n-1)
-        return
-# def task4_recur(x: int):

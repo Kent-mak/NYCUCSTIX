@@ -17,34 +17,41 @@ def solve_task(pid, var):
 def solve_task0(number):
     return number 
 
+
 def solve_task1(number):   # square
     
-    return 
+    ans = ''
+    return ans
 
 
 def solve_task2(number):   # star
     
-    return 
+    ans = ''
+    return ans
 
 
 def solve_task3(number):   # FIB
      
-    return 
+    ans = ''
+    return ans
 
 
 def solve_task4(number):   # identity matrix
    
-    return 
+    ans = ''
+    return ans
 
 
 def solve_task5(number):   # recursive
     
-    return 
+    ans = ''
+    return ans
 
 
 def solve_task6(number):  # easy problem
 
-    return 
+    ans = ''
+    return ans
 
 
 
