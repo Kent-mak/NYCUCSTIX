@@ -97,7 +97,7 @@ async def handle_form(event_name: str = Form(...)):
 # handle 
 @app.get("/events/{event_name}", response_class=JSONResponse)
 async def get_events(event_name: str):
-    print(event_name)
+    # print(event_name)
     # event = collection_name.find_one({"name": event_name})
     event = database.get_collection("Events").find_one({"name": event_name})
     if event:
@@ -114,7 +114,7 @@ async def get_events(event_name: str):
 # async def login(accountName: str = Form(...), password: str = Form(...)):
 async def login(form_data: OAuth2PasswordRequestForm = Depends()): 
     user = database.get_collection("Users").find_one({"name": form_data.username})
-    print(user)
+    # print(user)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -146,10 +146,10 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 @app.get("/user_data")
 async def user_page(token):
     user_name = await get_current_user(token)
-    print(user_name)
+    # print(user_name)
     user = database.get_collection("Users").find_one({"name": user_name})
     user['_id'] = str(user['_id'])
-    print(user)
+    # print(user)
     return user
 
 @app.post("/checkans")
@@ -159,15 +159,8 @@ async def verify_answer(request: Request):
     access_token = body["access_token"]
     p_token = body["p_token"]
     ans = body["ans"]
-    print(p_token)
-    # print("recieved:")
-    # print(repr(ans))
-
-    
-    print(type(p_token))
     p_token = uuid.UUID(p_token)
     p_token = Binary.from_uuid(p_token)
-    print(type(p_token))
     answer = database.get_collection("Problems").find_one({"p_token": p_token})
     # collection = database.get_collection("Problems").find()
     # return list_serial_problems(collection)
@@ -179,11 +172,17 @@ async def verify_answer(request: Request):
             detail="You are using an invalid token."
         )
     
-    ans.strip()
+    # ans = ans.strip()
     
     # if ans[-1] != '\n' and answer["ans"][-1] == '\n':
     #     ans += '\n'
-    print(repr(ans))
+
+    while ans[-1] == '\n':
+        ans = ans[:-1]
+
+    # print("recv:")
+    # print(ans)
+        
     if answer["ans"] != ans:  # answer incorrect
         print("ans incorrect")
         database.get_collection("Problems").delete_one({"p_token": p_token})
@@ -194,11 +193,11 @@ async def verify_answer(request: Request):
         )
         
     else:  # the answer is correct
-        # find user with access token
+        # find user with access 
         print("access_token:", access_token)
         user_name = await get_current_user(access_token)
         print("user_name = ", user_name)
-        # user = database.get_collection("Users").find_one({"name": user_name})
+        # old -> update user
         update_user = database.get_collection("Users")\
                                     .update_one(
                                         {"name": user_name, "events.name": answer["event_name"]},  # event need to check what is in database
@@ -210,8 +209,18 @@ async def verify_answer(request: Request):
                 {"name": user_name},
                 {"$push": {"events": {"name": answer["event_name"], "count": 1}}}
             )
-
-
+            
+        # new -> update event (Idol)
+        database.get_collection("Events").update_one(
+                                        {"name": answer["event_name"]},
+                                        {"$inc": {"vote_count": 1}}
+                                    )
+        # for debug
+        # if update_event.matched_count == 0:
+        #     print("no event match")
+        # else:
+        #     print("event add count")
+            # oldoldold
             # raise HTTPException(
             #     status_code=status.HTTP_404_NOT_FOUND,
             #     detail="update user database failed."
@@ -243,8 +252,6 @@ async def get_problem(token, event_name):
 
     var = random.randint(int(problem['var_start']), int(problem['var_end']))
     ans = solve_task(int(p_id), var)
-    # print(f'var: {var}')
-    # print(f'ans: {ans}')
     try:
         result = database.get_collection("Problems").insert_one({
             "p_token": p_token,

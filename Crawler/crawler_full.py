@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from SolveTask import solve_task
 import time
 
-url = "http://cstix.nctucsunion.me/"
+url = "http://cstix.nctucsunion.me"
 
 if __name__ == '__main__':
     
@@ -119,7 +119,7 @@ if __name__ == '__main__':
         Wait.until(EC.url_changes(originalURL), "Not going to confirmation page")
         print("送出答案後的網址: ", driver.current_url) 
 
-        if(driver.current_url == url + "confirmed"):
+        if(driver.current_url == url + "/confirmed"):
             print("購票成功")
         else:
             print("購票失敗")

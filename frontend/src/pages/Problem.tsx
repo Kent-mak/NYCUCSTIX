@@ -101,8 +101,8 @@ const Problem: React.FC = () => {
               rehypePlugins={[rehypeKatex]}
             />
           </div>
-          {problems.render && <div className="mt-8 max-md:max-w-full input"> <h2>輸入: </h2>{problems.var}</div>}
-          <div className="mt-8 max-md:max-w-full"><h2>輸出 (請作答) :</h2></div>
+          {problems.render && <div className="mt-8 max-md:max-w-full input"> <h2>輸入</h2>{problems.var}</div>}
+          <div className="mt-8 max-md:max-w-full"><h2>輸出 (請作答)</h2></div>
           <div className="flex gap-5 justify-between mt-8 font-bold text-black whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
             <textarea
               className="shrink-0 max-w-full bg-zinc-300 h-[212px] w-[700px] p-4 rounded"

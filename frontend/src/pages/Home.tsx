@@ -42,10 +42,10 @@ const Home: React.FC = () => {
       <div className="flex-grow flex justify-center items-center px-16 py-20 bg-white">
         <main className="flex flex-col items-center w-full">
           <header className="flex flex-col items-center w-full max-w-[1057px]">
-            <h1 className="text-4xl font-semibold tracking-tighter leading-9 text-black">現正熱賣</h1>
+            <h1 className="text-4xl font-semibold tracking-tighter leading-9 text-black">選我！選我！</h1>
             {/* <p className="mt-2 text-base leading-6 text-ellipsis text-zinc-700">獨立樂團</p> */}
           </header>
-          <section className="flex flex-wrap justify-center gap-8 w-full max-w-[1057px] mt-12">
+          <section className="flex flex-wrap justify-center gap-12 w-full max-w-[1057px] mt-12">
             {events.map((event, index) => (
               <EventCard
                 key={index}
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
                 subtitle={event['name']}
                 // date={event['date']}
                 // date = {`${event['date'].substring(0,4)}.${event['date'].substring(5,7)}.${event['date'].substring(8,10)} ${event['date'].substring(11,13)}:${event['date'].substring(14,16)}`}
-                buttonText={"我要買"}
+                buttonText={"投票"}
                 buttonAriaLabel={`vote for ${event['name']}`}
               />
             ))}

@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.23.1",
+    "recharts": "^2.12.7",
     "rehype-katex": "^7.0.0",
     "remark-math": "^6.0.0"
   },

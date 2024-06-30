@@ -29,6 +29,10 @@ const NavBar: React.FC = () => {
     navigate('/myticket');
   };
 
+  const handleBoardClick = () => {
+    navigate('/scoreboard');
+  };
+
   return (
     <header className="flex gap-5 justify-between px-20 py-7 whitespace-nowrap border-b border-solid bg-sky-950 border-neutral-200 leading-[150%] max-md:flex-wrap max-md:px-5">
       <nav className="flex gap-5 my-auto text-white">
@@ -39,8 +43,9 @@ const NavBar: React.FC = () => {
           NYCUCSTIX
         </h1>
         <div className="flex gap-5 justify-between">
-          <MenuItem text="我的票券" onClick={handleticketClick}/>
+          <MenuItem text="投票紀錄" onClick={handleticketClick}/>
           <MenuItem text="活動一覽" onClick={handleHomeClick}/>
+          <MenuItem text="排行榜" onClick={handleBoardClick}/>
         </div>
       </nav>
       <div className="flex gap-3 text-base font-medium text-black">

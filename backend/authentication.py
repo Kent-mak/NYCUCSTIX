@@ -9,7 +9,7 @@ from DB import DBClient
 config = dotenv_values(".env")
 JWT_SECRTE_KEY = config["JWT_SECRTE_KEY"]
 JWT_ALGORITHM = config["JWT_ALGORITHM"]
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 300
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -36,6 +36,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         if username is None:
             raise credential_exception
     except JWTError:
+        print("user not exist")
         raise credential_exception
     
     return username
