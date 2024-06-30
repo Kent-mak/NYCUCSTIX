@@ -184,11 +184,7 @@ def solve_problem():
     answerBoard.send_keys(answer)
     time.sleep(1.5)
  
-    if(driver.current_url == url + "confirmed"):
-        print("購票成功")
-    else:
-        print("購票失敗")
- 
+
 if __name__ == '__main__':
  
     # -------------- Step 1: 前置 --------------
