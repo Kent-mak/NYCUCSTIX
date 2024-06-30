@@ -78,6 +78,14 @@ async def read_form(request: Request):
     events = list(database.get_collection("Events").find())
     for event in events:
         event['_id'] = str(event['_id'])
+    
+    test_index = next((index for (index, d) in enumerate(events) if d["name"] == "菜鳥練習生"), None)
+    
+    if test_index is not None:
+        # Swap the event with the first element
+        test_event = events.pop(test_index)
+        events.insert(0, test_event)
+    
     return events
 
 # # handle login
