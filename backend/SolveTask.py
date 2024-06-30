@@ -20,7 +20,7 @@ def solve_task(pid, var):
 
 
 def echo(number):
-        return number 
+    return number 
 
 def echo_square(number):
     return int(number ** 2)

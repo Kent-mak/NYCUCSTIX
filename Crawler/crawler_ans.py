@@ -184,10 +184,7 @@ def solve_problem():
     answerBoard.send_keys(answer)
     time.sleep(1.5)
  
-    if(driver.current_url == url + "confirmed"):
-        print("購票成功")
-    else:
-        print("購票失敗")
+
  
 if __name__ == '__main__':
  
@@ -206,6 +203,6 @@ if __name__ == '__main__':
         click_next_step_button()
  
         # -------------- Step 4: 驗證 --------------
-        # fill_in_answer()    # 在新手村時使用 
+        # fill_in_answer()  # 在新手村時使用 
         solve_problem()   # 在挑戰賽時使用
         click_submit_button()

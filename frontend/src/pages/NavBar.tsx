@@ -38,7 +38,7 @@ const NavBar: React.FC = () => {
         </h1>
         <div className="flex gap-5 justify-between">
           <MenuItem text="投票紀錄" onClick={handleticketClick}/>
-          <MenuItem text="活動一覽" onClick={handleHomeClick}/>
+          <MenuItem text="練習生名單" onClick={handleHomeClick}/>
           <MenuItem text="排行榜" onClick={handleBoardClick}/>
         </div>
       </nav>
