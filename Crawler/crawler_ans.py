@@ -9,6 +9,7 @@ from SolveTask import solve_task  # 從 SolveTask 引入 solve_task 函數
  
 url = "http://cstix.nctucsunion.me/"
  
+
 # -------------- Step 1: 前置 --------------
 def init_driver():
     
@@ -84,7 +85,7 @@ def click_sign_in_button():
     time.sleep(1.5)
     
  
-# -------------- Step 3: 購票 -------------- 
+# -------------- Step 3: 投票 -------------- 
 def go_to_home_page():
     '''
     回到首頁
@@ -100,7 +101,7 @@ def click_vote_button():
     TODO: 透過 XPath 找到"投票"按鈕
     '''
     # raise NotImplementedError("還沒點擊投票按鈕位置")
-    targetXPATH = '//article[.//h2[text()="idol 2"]]//button'
+    targetXPATH = '//article[.//h2[text()="布朗克斯狂人"]]//button'
     targetButton = Wait.until(EC.presence_of_element_located((By.XPATH, targetXPATH)), "Error finding target ticket")
     originalURL = driver.current_url
     targetButton.click() # 點擊"投票"按鈕
@@ -129,7 +130,7 @@ def fill_in_answer():
     # raise NotImplementedError("還沒找到輸入值數字")
     inputNumXPATH = '//div[contains(@class, "input")]'
     inputBox = Wait.until(EC.presence_of_element_located((By.XPATH, inputNumXPATH)), "Error finding input box")
-    # Hint: 字串處理 split
+    # Hint: inputBox.text + 字串處理 split
     inputNum = int(inputBox.text.split('\n')[1])
  
     # raise NotImplementedError("還沒找到答案輸入框位置")
@@ -169,10 +170,10 @@ def solve_problem():
     problemID = problemTitle.text.split(' ')[1]
     problemID = int(problemID)
     
-    
+    # 以下 XPATH 和 fill_in_answer() 相同，但有部分需做修改
     inputNumXPATH = "//div[contains(@class, 'input')]"
     inputBox = Wait.until(EC.presence_of_element_located((By.XPATH, inputNumXPATH)), "Error finding input box")
-    # Hint: 字串處理 split
+    # Hint: inputBox.text + 字串處理 split
     inputNum = int(inputBox.text.split('\n')[1])
     
  
@@ -187,22 +188,28 @@ def solve_problem():
 
  
 if __name__ == '__main__':
- 
+
     # -------------- Step 1: 前置 --------------
     init_driver()
- 
+
     # -------------- Step 2: 登入 --------------
     click_login_button()
     fill_in_info()
     click_sign_in_button()
- 
+
+    # -------------- Step 3: 購票 --------------
     while True:
-        # -------------- Step 3: 購票 --------------
         go_to_home_page()
         click_vote_button()
         click_next_step_button()
- 
+
         # -------------- Step 4: 驗證 --------------
-        # fill_in_answer()  # 在新手村時使用 
-        solve_problem()   # 在挑戰賽時使用
+        # fill_in_answer()    # 在菜鳥練習生時使用 
+        solve_problem()   # 在比賽時使用
         click_submit_button()
+
+'''
+注意：
+1. 填完空格記得把 raise NotImplementedError 註解掉
+2. 若想要加快爬蟲速度，可以把 time.sleep(1.5) 註解掉
+'''

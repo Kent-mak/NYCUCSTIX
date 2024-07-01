@@ -55,20 +55,20 @@ def fill_in_info():
     TODO: 找到帳號、密碼輸入框，並輸入帳號密碼 
     '''
 
-    raise NotImplementedError("還沒找到帳號密碼輸入框位置") 
-    loginAccountXPath = '___(?)___'     # 找到帳號輸入框的 XPath
-    loginPasswordXPath = '___(?)___'    # 找到密碼輸入框的 XPath
+    # raise NotImplementedError("還沒找到帳號密碼輸入框位置")
+    loginAccountXPath = '//input[@id="account"]'     # 找到帳號輸入框的 XPath
+    loginPasswordXPath = '//input[@id="password"]'    # 找到密碼輸入框的 XPath
     loginAccount = Wait.until(EC.presence_of_element_located((By.XPATH, loginAccountXPath)), "Find Account Input Error")
     loginPassword = Wait.until(EC.presence_of_element_located((By.XPATH, loginPasswordXPath)), "Find Password Input Error")
     
-    raise NotImplementedError("還沒填寫登入資訊") 
-    myAccount = '___(?)___'  # 第一組是 Group1，以此類推
+    # raise NotImplementedError("還沒填寫登入資訊")
+    myAccount = 'Test'  # 第一組是 Group1，以此類推
     # Hint: send_keys()
-    '_________(?)_________' # 將帳號填入帳號輸入框
+    loginAccount.send_keys(myAccount)
     
-    myPassword = '___(?)___'
+    myPassword = 'testuser'
     # HINT: send_keys()
-    '_________(?)_________' # 將密碼填入帳號輸入框
+    loginPassword.send_keys(myPassword)
     time.sleep(1.5)
 
 
@@ -76,8 +76,8 @@ def click_sign_in_button():
     '''
     TODO: 透過 XPath 找到"Sign in"按鈕
     '''
-    raise NotImplementedError("還沒找到 Sign in 按鈕位置") 
-    signInButtonXPATH = '___(?)___' # 找到 Sign in 按鈕的 XPath
+    # raise NotImplementedError("還沒找到 Sign in 按鈕位置") 
+    signInButtonXPATH = '//button[text()="Sign in"]' # 找到 Sign in 按鈕的 XPath
     signInButton = Wait.until(EC.presence_of_element_located((By.XPATH, signInButtonXPATH)), "Find Sign In Button Error")
     originalURL = driver.current_url
     signInButton.click() # 點擊 Sign in 按鈕
@@ -100,11 +100,11 @@ def click_vote_button():
     '''
     TODO: 透過 XPath 找到"投票"按鈕
     '''
-    raise NotImplementedError("還沒點擊投票按鈕位置") 
-    targetXPATH = '//article[.//h2[text()="___(?)___"]]//button'
+    # raise NotImplementedError("還沒點擊投票按鈕位置") 
+    targetXPATH = '//article[.//h2[text()="菜鳥練習生"]]//button'
     targetButton = Wait.until(EC.presence_of_element_located((By.XPATH, targetXPATH)), "Error finding target ticket")
     originalURL = driver.current_url
-    '_________(?)_________' # 點擊"投票"按鈕
+    targetButton.click() # 點擊"投票"按鈕
     Wait.until(EC.url_changes(originalURL), "Not going to ticket page")
     time.sleep(1.5)
 
@@ -113,8 +113,8 @@ def click_next_step_button():
     '''
     TODO: 透過 XPath 找到"下一步"按鈕 
     '''
-    raise NotImplementedError("還沒點擊下一步按鈕位置") 
-    nextStepXPATH = '___(?)___'
+    # raise NotImplementedError("還沒點擊下一步按鈕位置") 
+    nextStepXPATH = '//button[text()="下一步"]'
     nextStep = Wait.until(EC.presence_of_element_located((By.XPATH, nextStepXPATH)), "Error finding next step button")
     originalURL = driver.current_url
     nextStep.click()  # 點擊"下一步"按鈕
@@ -127,17 +127,17 @@ def fill_in_answer():
     '''
     TODO: 透過 XPath 找到輸入值數字，並填入答案
     ''' 
-    raise NotImplementedError("還沒找到輸入值數字") 
-    inputNumXPATH = '___(?)___'
+    # raise NotImplementedError("還沒找到輸入值數字") 
+    inputNumXPATH = '//div[contains(@class, "input")]'
     inputBox = Wait.until(EC.presence_of_element_located((By.XPATH, inputNumXPATH)), "Error finding input box")
     # Hint: inputBox.text + 字串處理 split
-    inputNum = int("___(?)___")
+    inputNum = int(inputBox.text.split('\n')[1])
 
-    raise NotImplementedError("還沒找到答案輸入框位置") 
-    answerBoardXPATH = '___(?)___'
+    # raise NotImplementedError("還沒找到答案輸入框位置") 
+    answerBoardXPATH = '//textarea'
     answerBoard = Wait.until(EC.presence_of_element_located((By.XPATH, answerBoardXPATH)), "Error finding answer board")
     # HINT: send_keys()
-    '_________(?)_________' # 將答案填入答案輸入框
+    answerBoard.send_keys(inputNum) # 將答案填入答案輸入框
     time.sleep(1.5)
 
 
@@ -145,8 +145,8 @@ def click_submit_button():
     '''
     TODO: 透過 XPath 找到"確認答案，送出"按鈕
     '''
-    raise NotImplementedError("還沒點擊送出按鈕位置") 
-    submitButtonXPATH = '___(?)___'
+    # raise NotImplementedError("還沒點擊送出按鈕位置") 
+    submitButtonXPATH = '//button[text()="確認答案，送出"]'
     submitButton = Wait.until(EC.presence_of_element_located((By.XPATH, submitButtonXPATH)), "Error finding submit button")
     originalURL = driver.current_url
     submitButton.click() # 點擊"確認答案，送出"按鈕
@@ -173,7 +173,7 @@ def solve_problem():
     # 以下 XPATH 和 fill_in_answer() 相同，但有部分需做修改
     inputNumXPATH = '___(?)___'
     inputBox = Wait.until(EC.presence_of_element_located((By.XPATH, inputNumXPATH)), "Error finding input box")
-    # Hint: inputBox.text + 字串處理 split
+    # Hint: 字串處理 split
     inputNum = int("___(?)___")
     
 
@@ -198,14 +198,15 @@ if __name__ == '__main__':
     click_sign_in_button()
 
     # -------------- Step 3: 投票 --------------
-    go_to_home_page()
-    click_vote_button()
-    click_next_step_button()
+    while True:
+        go_to_home_page()
+        click_vote_button()
+        click_next_step_button()
 
-    # -------------- Step 4: 驗證 --------------
-    fill_in_answer()    # 在菜鳥練習生時使用
-    # solve_problem()   # 在比賽時使用
-    click_submit_button()
+        # -------------- Step 4: 驗證 --------------
+        fill_in_answer()    # 在菜鳥練習生時使用
+        # solve_problem()   # 在比賽時使用
+        click_submit_button()
 
 '''
 注意：

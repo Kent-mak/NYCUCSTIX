@@ -63,18 +63,18 @@ def solve_task5(number):   # star-advanced
     return a
 
 
+a = [0] * (200 + 1)  # 使用 number+1 大小的列表，索引從0到number
+a[1] = 1
+a[2] = 1
 def solve_task6(number):
+    
     if number <= 0:
         return 0
-    if number == 1 or number == 2:
+    elif number == 1 or number == 2:
         return 1
+    elif a[number] != 0:
+        return a[number]
+    elif a[number] == 0:
+        a[number] = solve_task6(number - 1) + solve_task6(number - 2)
+        return a[number]
     
-    a = [0] * (number + 1)  # 使用 number+1 大小的列表，索引從0到number
-    a[1] = 1
-    a[2] = 1
-    
-    for i in range(3, number + 1):
-        a[i] = a[i-1] + a[i-2]
-    
-    return a[number]
-
