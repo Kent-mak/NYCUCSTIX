@@ -1,0 +1,2 @@
+db.Events.updateMany({},{"$set": {vote_count: 0}})
+db.Users.updateMany({}, {"$set": {events: []}})
