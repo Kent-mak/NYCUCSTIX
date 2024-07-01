@@ -4,6 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../provider/AuthProvider"; 
 import UserNavBar from "./UserNavBar";
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 // type ConcertDetailsProps = {
 //   // time: string;
@@ -112,7 +115,12 @@ const Event: React.FC = () => {
                 <div className="flex flex-col ml-5 w-[55%] max-md:ml-0 max-md:w-full">
                   <h2 className="mt-10 text-2xl leading-8 text-black max-md:mt-10"> {event_name}</h2>
                   <div className=" text-xl leading-8 text-zinc-500 max-md:mt-10">
-                    {event.description}
+                    <ReactMarkdown
+                      children={event.description}
+                      remarkPlugins={[remarkMath]}
+                      rehypePlugins={[rehypeKatex]}
+                    />
+                    
                   </div>
                   {/* <ConcertDetails
                     // time={`時間: ${event.date.substring(0,4)}.${event.date.substring(5,7)}.${event.date.substring(8,10)} ${event.date.substring(11,13)}:${event.date.substring(14,16)}`}
