@@ -13,6 +13,6 @@ def generate_p_token():
     return Binary.from_uuid(uuid_token, uuid_representation=4), uuid_token
 
 def get_random_problem(event_name: str):
-    if event_name == "test":
+    if event_name == "菜鳥練習生":
         return 0
     return random.randint(1, int(config["PROBLEM_COUNT"])-1)
