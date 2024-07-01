@@ -61,13 +61,13 @@ def insertEvents():
             break
 
     print(f'entries to be added: {data}')
-    if input("commit?: "): 
+    if int(input("commit?: ")): 
         result = Events.insert_many(data)
         print(f'Data inserted with IDs: {result.inserted_ids}')
     else:
         print("Input cancelled")
 
-
+# https://drive.google.com/thumbnail?=1sMs_AARvubRCRTre7LV8Evulx9yMp6kC
 def insertUsers():
     Users = db_client.database['Users'] 
     data = []
