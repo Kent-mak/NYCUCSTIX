@@ -41,7 +41,7 @@ const MyTicket: React.FC = () => {
           <div className="flex flex-col mt-28 w-full max-w-[1062px] max-md:mt-10 max-md:max-w-full">
             <div className="flex flex-col px-20 whitespace-nowrap max-md:px-5 max-md:max-w-full">
               <div className="justify-center self-start text-4xl font-semibold tracking-tighter leading-9">
-                我的票券
+                投票紀錄 
               </div>
               <div className="flex gap-5 justify-between self-end mt-16 max-w-full text-xl font-bold leading-8 w-[859px] max-md:flex-wrap max-md:mt-10">
                 <div>活動名稱</div>

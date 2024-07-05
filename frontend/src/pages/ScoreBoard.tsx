@@ -33,7 +33,7 @@ const Scoreboard: React.FC = () => {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 1000); // Update every 5 seconds
+    const interval = setInterval(fetchData, 3000); // Update every 5 seconds
 
     return () => clearInterval(interval);
   }, []);

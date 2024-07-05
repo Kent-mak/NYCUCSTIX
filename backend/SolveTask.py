@@ -17,6 +17,8 @@ def solve_task(pid, var):
         return star_advance(var)
     elif pid == 6:
         return FIB(var)
+    elif pid == 7:
+        return square(var)
 
 
 def echo(number):
@@ -79,6 +81,19 @@ def FIB(number):
     # return ans
     return store.get_FIB(number)
 
+def square(number):   # square
+    ans: str
+    flag = False
+    for i in range(1005):
+        y = (i+1)**2 + (i+2)**2 + (i+3)**2
+        if y == number:
+            ans = "yes"
+            flag = True
+            break
+
+    if flag == False:
+        ans = "no"
+    return ans
 
 # test
 if __name__ == '__main__':
