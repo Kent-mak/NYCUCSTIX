@@ -5,24 +5,44 @@ This is a ticket Purchasing Website. After logging in, users can select the type
 The purpose of this website is to be used in a camp to teach web scraping techniques for building a ticket-snatching bot.
 
 ## requirements
-
+- python 3.10
+  - download packages
+    ```shell
+    .\venv\Scripts\Activate
+    pip install -r requirements.txt
+    ```
+- download Node.js
+  - verify installation
+    ```shell
+    node -v
+    npm -v
+    ```
+  - download requirements
+    ```shell
+    npm install axios react-markdown
+    ```
 ## architecture
-
+  ```
+  - backend/   # a backend built using FastAPI and MongoDB
+  - frontend/  # a frontend developed using React
+  - Crawler/   # a crawler to crawl the website
+  - manageDB/  # use to test the connection to DB
+  - scoreboard-app/ # a scoreboard to show number of tickets the user purchases
+  ```
 ## run project
-  # backend
-  ```
-  python -m pip install "pymongo[srv]"
-  pip install fastapi
-  pip install python-jose[cryptography]
-  pip install uuid
-  ```
-  to run dev server
-  ```
+  - run backend
+  ```shell
   fastapi dev main.py
   ```
   
-  # frontend
+  - run frontend
+  ```shell  
+  npm install
+  npm run dev
   ```
-  npm install axios react-markdown
+  - run crawler
+  ```shell  
+  python crawler_ans.py
   ```
-## demo
+## website url
+http://cstix.nctucsunion.me/
